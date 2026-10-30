@@ -9,8 +9,17 @@ on:
   workflow_dispatch:
     inputs:
       kind:
-        description: 'short | long | post'
-        default: 'short'
+        description: 'কোন ধরনের কনটেন্ট?'
+        type: choice
+        default: short
+        options:
+          - short
+          - long
+          - post
+      dry_run:
+        description: 'টিক থাকলে শুধু বানাবে, YouTube-এ আপলোড করবে না'
+        type: boolean
+        default: true
 permissions:
   contents: write
 concurrency:
@@ -30,7 +39,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Decide kind (BD time: 6AM short, 12PM long, 6PM short, 12AM long, Fri post)
+      - name: Decide kind (BD time - 6AM short, 12PM long, 6PM short, 12AM long, Fri post)
         run: |
           S="${{ github.event.schedule }}"
           K="${{ github.event.inputs.kind }}"; H=""
@@ -43,6 +52,7 @@ jobs:
           esac
           echo "KIND=${K:-short}" >> $GITHUB_ENV
           echo "PUBLISH_HOUR_BD=$H" >> $GITHUB_ENV
+          echo "Selected kind: ${K:-short}"
       - uses: actions/cache@v4
         with:
           path: |
@@ -61,7 +71,41 @@ jobs:
           sleep 10
           ollama pull $OLLAMA_MODEL
       - name: Run
-        run: python main.py
+        env:
+          DRY: ${{ github.event.inputs.dry_run }}
+        run: |
+          if [ "$DRY" = "true" ]; then
+            echo "DRY RUN: আপলোড বন্ধ"
+            unset YT_REFRESH_TOKEN
+          fi
+          python -u main.py
+      - name: Show result
+        if: always()
+        run: |
+          python - <<'EOF' >> "$GITHUB_STEP_SUMMARY"
+          import json, os
+          print("# Result")
+          print("Kind: " + os.getenv("KIND", "?"))
+          try:
+              d = json.load(open("out/info.json"))
+          except Exception:
+              print("")
+              print("out/info.json নেই। post হলে posts/ ফোল্ডার দেখুন, না হলে Run ধাপের লগ দেখুন।")
+              raise SystemExit
+          print("")
+          print("## " + d["meta"]["title"])
+          print("**Topic:** " + d["topic"])
+          print("**Guest:** " + d["guest"]["name"] + " (" + d["guest"]["role"] + ")")
+          print("**Edit style:** " + json.dumps(d["edit"]))
+          print("")
+          print("### Script")
+          for l in d["lines"]:
+              who = "Alex" if l["s"] == "H" else d["guest"]["name"]
+              print("- **" + who + ":** " + l["t"])
+          print("")
+          print("### Description")
+          print(d["meta"]["description"])
+          EOF
       - name: Save state
         if: always()
         run: |
@@ -76,3 +120,4 @@ jobs:
         with:
           name: out
           path: out
+          if-no-files-found: ignore
