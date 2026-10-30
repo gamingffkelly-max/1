@@ -1,0 +1,78 @@
+name: Psychology Boosting
+on:
+  schedule:
+    - cron: '30 21 * * *'
+    - cron: '30 3 * * *'
+    - cron: '30 9 * * *'
+    - cron: '30 15 * * *'
+    - cron: '0 7 * * 5'
+  workflow_dispatch:
+    inputs:
+      kind:
+        description: 'short | long | post'
+        default: 'short'
+permissions:
+  contents: write
+concurrency:
+  group: psych
+  cancel-in-progress: false
+env:
+  OLLAMA_MODEL: qwen2.5:3b
+  YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+  YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+  YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Decide kind (BD time: 6AM short, 12PM long, 6PM short, 12AM long, Fri post)
+        run: |
+          S="${{ github.event.schedule }}"
+          K="${{ github.event.inputs.kind }}"; H=""
+          case "$S" in
+            "30 21 * * *") K=short; H=6;;
+            "30 3 * * *")  K=long;  H=12;;
+            "30 9 * * *")  K=short; H=18;;
+            "30 15 * * *") K=long;  H=0;;
+            "0 7 * * 5")   K=post;;
+          esac
+          echo "KIND=${K:-short}" >> $GITHUB_ENV
+          echo "PUBLISH_HOUR_BD=$H" >> $GITHUB_ENV
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/huggingface
+            ~/.ollama
+            voices
+          key: models-v1
+      - name: Install python deps
+        run: |
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install diffusers transformers accelerate safetensors piper-tts requests numpy pillow google-api-python-client google-auth
+      - name: Install local AI (Ollama)
+        run: |
+          curl -fsSL https://ollama.com/install.sh | sh
+          nohup ollama serve > ollama.log 2>&1 &
+          sleep 10
+          ollama pull $OLLAMA_MODEL
+      - name: Run
+        run: python main.py
+      - name: Save state
+        if: always()
+        run: |
+          git config user.name "bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add state.json assets posts || true
+          git commit -m "update" || true
+          git pull --rebase || true
+          git push || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: out
+          path: out
