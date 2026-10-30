@@ -415,9 +415,12 @@ def upload(path, meta, thumb):
     from google.auth.transport.requests import Request
     from googleapiclient.discovery import build
     from googleapiclient.http import MediaFileUpload
-    cr = Credentials(None, refresh_token=os.environ["YT_REFRESH_TOKEN"], token_uri="https://oauth2.googleapis.com/token",
-                     client_id=os.environ["YT_CLIENT_ID"], client_secret=os.environ["YT_CLIENT_SECRET"],
-                     scopes=["https://www.googleapis.com/auth/youtube.upload"])
+    # scopes intentionally NOT passed: refresh uses the scopes the token was issued with
+    cr = Credentials(None,
+                     refresh_token=os.environ["YT_REFRESH_TOKEN"].strip(),
+                     token_uri="https://oauth2.googleapis.com/token",
+                     client_id=os.environ["YT_CLIENT_ID"].strip(),
+                     client_secret=os.environ["YT_CLIENT_SECRET"].strip())
     cr.refresh(Request())
     yt = build("youtube", "v3", credentials=cr)
     pa = publish_at()
@@ -432,12 +435,12 @@ def upload(path, meta, thumb):
     resp = None
     while resp is None:
         _, resp = req.next_chunk()
+    print("uploaded", resp["id"], "publishAt", pa)
     if thumb:
         try:
             yt.thumbnails().set(videoId=resp["id"], media_body=MediaFileUpload(thumb)).execute()
         except Exception as e:
             print("thumbnail failed:", e)
-    print("uploaded", resp["id"], "publishAt", pa)
 
 # ---------------- Friday image post ----------------
 def friday_post(state):
