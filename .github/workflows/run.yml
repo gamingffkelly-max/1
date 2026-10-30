@@ -17,9 +17,9 @@ on:
           - long
           - post
       dry_run:
-        description: 'টিক থাকলে শুধু বানাবে, YouTube-এ আপলোড করবে না'
+        description: 'টিক দিলে শুধু বানাবে, আপলোড করবে না'
         type: boolean
-        default: true
+        default: false
 permissions:
   contents: write
 concurrency:
@@ -39,6 +39,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - name: Install ffmpeg and fonts
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg fonts-dejavu-core
+          ffmpeg -version | head -n 1
       - name: Decide kind (BD time - 6AM short, 12PM long, 6PM short, 12AM long, Fri post)
         run: |
           S="${{ github.event.schedule }}"
@@ -77,6 +82,8 @@ jobs:
           if [ "$DRY" = "true" ]; then
             echo "DRY RUN: আপলোড বন্ধ"
             unset YT_REFRESH_TOKEN
+          else
+            echo "LIVE RUN: ভিডিও আপলোড হবে"
           fi
           python -u main.py
       - name: Show result
