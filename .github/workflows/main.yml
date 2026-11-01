@@ -1,0 +1,81 @@
+name: World News Debate Show
+
+on:
+  schedule:
+    - cron: '0 18 * * *'   # 12:00 AM BDT -> long
+    - cron: '0 6 * * *'    # 12:00 PM BDT -> long
+    - cron: '0 0 * * *'    # 06:00 AM BDT -> short
+    - cron: '0 12 * * *'   # 06:00 PM BDT -> short
+    - cron: '0 8 * * 5'    # Friday 02:00 PM BDT -> post
+  workflow_dispatch:
+    inputs:
+      kind:
+        description: "long / short / friday"
+        default: "long"
+        type: choice
+        options: [long, short, friday]
+
+permissions:
+  contents: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: System packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg fonts-dejavu-core
+
+      - name: Python packages
+        run: pip install -r requirements.txt
+
+      - name: Local AI (Ollama)
+        run: |
+          curl -fsSL https://ollama.com/install.sh | sh
+          nohup ollama serve > ollama.log 2>&1 &
+          for i in $(seq 1 40); do curl -s http://127.0.0.1:11434 >/dev/null && break; sleep 3; done
+          ollama pull qwen2.5:3b
+
+      - name: Run
+        env:
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+          MODEL: qwen2.5:3b
+          TARGET_MIN: "112"
+        run: |
+          KIND="${{ github.event.inputs.kind }}"
+          if [ -z "$KIND" ]; then
+            case "${{ github.event.schedule }}" in
+              "0 18 * * *"|"0 6 * * *") KIND=long;;
+              "0 8 * * 5") KIND=friday;;
+              *) KIND=short;;
+            esac
+          fi
+          python main.py $KIND
+
+      - name: Friday post and character JPG files
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: friday-post
+          path: out/friday*
+          if-no-files-found: ignore
+
+      - name: Save state
+        if: success()
+        run: |
+          git config user.name "bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add used.json || true
+          git commit -m "state" || exit 0
+          git pull --rebase || true
+          git push || true
