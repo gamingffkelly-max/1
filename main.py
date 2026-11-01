@@ -10,6 +10,7 @@ MODEL = os.getenv("OLLAMA_MODEL", "qwen2.5:3b")
 OLLAMA = "http://127.0.0.1:11434"
 SR = 22050
 FONT = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+CAPTIONS = True          # False করলে সাবটাইটেল বন্ধ
 try:
     LONG_TARGET = float(os.getenv("LONG_TARGET_MIN") or 105) * 60
 except Exception:
@@ -27,25 +28,32 @@ GX, HX = 350, 930
 HOST_VOICE = "en_US-ryan-high"
 MALE = ["en_GB-alan-medium", "en_US-joe-medium", "en_US-hfc_male-medium", "en_GB-northern_english_male-medium"]
 FEMALE = ["en_US-amy-medium", "en_GB-jenny_dioco-medium", "en_US-lessac-medium", "en_GB-alba-medium", "en_US-hfc_female-medium"]
-AREAS = ["self-improvement and discipline", "strategy and long-term thinking", "game theory and human behavior",
-         "power dynamics and influence", "negotiation and persuasion", "cognitive biases", "decision making under pressure",
-         "motivation and habit psychology", "fear, anxiety and courage", "social psychology and group behavior",
-         "emotional intelligence", "body language and first impressions", "confidence and self-image",
-         "attraction and charisma", "leadership and authority", "stoic and philosophical psychology",
-         "memory, attention and focus", "attachment and relationships", "moral psychology", "dark psychology and manipulation awareness",
-         "ambition, status and envy", "resilience and grief", "creativity and flow", "money psychology and risk"]
+AREAS = ["dark psychology and manipulation awareness", "self-improvement and discipline", "strategy and long-term thinking",
+         "game theory and human behavior", "power dynamics and influence", "negotiation and persuasion", "cognitive biases",
+         "decision making under pressure", "motivation and habit psychology", "fear, anxiety and courage",
+         "social psychology and group behavior", "emotional intelligence", "body language and first impressions",
+         "confidence and self-image", "attraction and charisma", "leadership and authority", "stoic and philosophical psychology",
+         "memory, attention and focus", "attachment and relationships", "moral psychology", "ambition, status and envy",
+         "resilience and grief", "creativity and flow", "money psychology and risk", "propaganda and mass behavior"]
 KINDS = ["hoodie", "suit", "turtleneck", "jacket", "sweater", "tee", "bomber"]
+GUEST_KINDS = [k for k in KINDS if k != "hoodie"]
 HATS, HAIRS = ["beanie", "cap", "none"], ["short", "messy", "curly", "bald", "long"]
 BEARDS, CENTERS = ["none", "stubble", "goatee", "mustache", "full"], ["window", "neon", "posters"]
 SIDES, MOODS = ["shelves", "plants", "panels", "lamps", "curtain"], ["calm", "tense", "hopeful", "dark", "curious"]
 PALETTE = ["#1f2a44", "#3b2f2f", "#2d4a3e", "#5a1f2b", "#222222", "#4a4e69", "#6b4f3a", "#1b3a4b", "#7a5c2e", "#343a40", "#8d99ae", "#2f3e46"]
 ACCENTS = ["#FFC21A", "#FF3B30", "#00D1FF", "#7CFF6B", "#FF7A00", "#C77DFF"]
-FORMAT = 'Return JSON: {"lines":[{"s":"H","t":"..."},{"s":"G","t":"...","k":"optional key phrase"}]}'
-SYS = ("You write dialogue for a serious, professional English podcast about self-improvement, strategy, psychology, "
-       "human behavior and power. Host Alex (s=H) asks short, sharp, hard questions (max 18 words). The guest (s=G) gives deep, "
-       "concrete answers using real psychological concepts, well-known historical episodes, famous proverbs, mental models "
-       "and thought experiments. Never invent studies, statistics or quotes attributed to real people; mention research only in "
-       "general, well-established terms. No greetings filler, no sponsor talk, no links, no stage directions. Output valid JSON only.")
+DARK_HOST = ["#141414", "#1a1a1f", "#1b2330", "#17251e", "#2a1416"]
+GREYS = ["#6b6b73", "#8d8d96", "#5a5f6b"]
+GUEST_COLORS = ["#6b4f3a", "#2d4a3e", "#4a4e69", "#7a5c2e", "#8d99ae", "#5a1f2b", "#1b3a4b", "#a8763e"]
+FORMAT = 'Return JSON: {"lines":[{"s":"H","t":"..."},{"s":"G","t":"..."}]}'
+SYS = ("You write dialogue for a serious, professional English podcast about dark psychology (taught for awareness and defense), "
+       "self-improvement, strategy, human behavior and power. Host Alex (s=H) is sharp: he asks short hard questions, but he also "
+       "challenges ideas, adds a surprising fact, or restates a hard idea in plain words (max 25 words per turn). The guest (s=G) explains "
+       "difficult ideas simply and in an organized way: a counter-intuitive claim, a real well-documented example (a famous historical "
+       "episode, a well-known psychology experiment, a classic book or strategist), the mechanism in plain language with an everyday "
+       "analogy, then what to do or how to defend yourself. Use only famous, well-established cases and describe them accurately and "
+       "generally. Never invent studies, statistics, percentages, names or quotes; if unsure, leave the detail out. Dark psychology is "
+       "never taught as a how-to for harming people. No filler, no sponsor talk, no links, no stage directions. Output valid JSON only.")
 
 # ================= helpers =================
 def hexrgb(h):
@@ -77,14 +85,6 @@ def dark_hex(h, maxl):
         c = shade(c, 0.85)
     return "#%02x%02x%02x" % c
 
-def ease_out(x):
-    return 1 - (1 - x) ** 3
-
-def ease_back(x):
-    c1 = 1.70158
-    c3 = c1 + 1
-    return 1 + c3 * (x - 1) ** 3 + c1 * (x - 1) ** 2
-
 _fc = {}
 def font(sz):
     sz = int(max(10, sz))
@@ -96,6 +96,10 @@ def fmt_ts(s):
     s = int(s)
     h, m, sec = s // 3600, (s % 3600) // 60, s % 60
     return f"{h}:{m:02d}:{sec:02d}" if h else f"{m}:{sec:02d}"
+
+def ell_text(s, n):
+    s = str(s)
+    return s if len(s) <= n else s[:n - 1].rstrip() + "..."
 
 # ================= local LLM =================
 def llm(prompt, system=SYS, js=False, temp=0.8, num=2500):
@@ -131,22 +135,26 @@ def clean(x):
         try:
             s = str(d.get("s", "")).strip().upper()[:1]
             t = fix_text(d.get("t", ""))
-            k = re.sub(r"[^\w\s'&-]", "", str(d.get("k") or "")).strip()[:26]
             if s in ("H", "G") and len(t.split()) >= 3:
-                out.append({"s": s, "t": t, "k": k if (s == "G" and 1 <= len(k.split()) <= 4) else ""})
+                out.append({"s": s, "t": t})
         except Exception:
             pass
     return out
 
+def drop_stats(t):
+    sents = re.split(r"(?<=[.?!])\s+", t)
+    keep = [s for s in sents if not re.search(r"%|percent", s, re.I)]
+    return " ".join(keep) if keep else t
+
 def tidy(lines):
     out = []
     for l in lines:
-        t = l["t"]
-        if re.search(r"as an ai|language model|sponsor", t, re.I):
+        t = drop_stats(l["t"])
+        if len(t.split()) < 3 or re.search(r"as an ai|language model|sponsor", t, re.I):
             continue
-        if l["s"] == "H" and len(t.split()) > 22:
+        if l["s"] == "H" and len(t.split()) > 28:
             sents = re.split(r"(?<=[.?!])\s+", t)
-            t = sents[0] if len(sents[0].split()) <= 22 else " ".join(t.split()[:20]) + "?"
+            t = sents[0] if len(sents[0].split()) <= 28 else " ".join(t.split()[:26]).rstrip(",;:") + "."
         out.append({**l, "t": t})
     return out
 
@@ -163,10 +171,10 @@ def sim(a, b):
 def refine(lines, passes):
     for _ in range(passes):
         try:
-            crit = llm("Critique this podcast dialogue. List: invented studies/quotes, shallow or generic parts, repetition, "
-                       "host questions longer than 18 words, weak hook. Max 100 words.\n" + json.dumps(lines),
+            crit = llm("Critique this podcast dialogue. List: invented studies, numbers or quotes, shallow or generic parts, repetition, "
+                       "missing real example, weak hook. Max 100 words.\n" + json.dumps(lines),
                        "You are a strict editor.", False, 0.3, 400)
-            j = llm_json("Rewrite the dialogue fixing every issue. Keep similar length, keep the same format and the key phrases.\nISSUES: "
+            j = llm_json("Rewrite the dialogue fixing every issue. Keep similar length and the same format.\nISSUES: "
                          + crit + "\nDIALOGUE: " + json.dumps(lines) + "\n" + FORMAT)
             new = tidy(clean(j.get("lines")))
             if new and 0.8 * wc(lines) <= wc(new) <= 1.25 * wc(lines):
@@ -191,7 +199,8 @@ def pick_topic(state):
     for _ in range(6):
         area = random.choice(AREAS)
         j = llm_json(f"Area: {area}\nAlready covered (never repeat or paraphrase): {json.dumps(recent)}\n"
-                     "Propose ONE fresh, specific, intriguing topic for a deep expert conversation that makes viewers want to keep watching. "
+                     "Propose ONE fresh, specific, intriguing topic for a deep expert conversation that goes beyond common knowledge and makes "
+                     "viewers keep watching. Keep the topic under 12 words. "
                      'JSON: {"topic":"...","angle":"one sentence on the surprising angle"}', temp=1.0)
         t, angle = str(j.get("topic", "")).strip(), str(j.get("angle", ""))
         if t and not any(sim(t, r) > 0.5 for r in recent):
@@ -202,36 +211,46 @@ def make_guest(topic, state):
     used = state["guests"][-60:]
     try:
         g = llm_json(f"Invent a FICTIONAL expert guest for a podcast about: {topic}. Not a real person. Avoid these names: {used}.\n"
-                     'JSON keys: name, gender ("male" or "female"), age (30-75), role, style (5 words about speaking style).', temp=1.0)
+                     'JSON keys: name (first and last name, may start with Dr.), gender ("male" or "female"), age (30-75), '
+                     "role (3-5 words, e.g. behavioral psychologist), style (5 words about speaking style).", temp=1.0)
     except Exception:
         g = {}
     g["name"] = re.sub(r"[^\w .'-]", "", str(g.get("name") or "Dr. Sam Reed"))[:40] or "Dr. Sam Reed"
     g["gender"] = "female" if str(g.get("gender", "")).lower().startswith("f") else "male"
     g["age"] = int(clamp(g.get("age"), 30, 75, 45))
-    g["role"] = str(g.get("role") or "behavioral psychologist")[:60]
+    g["role"] = re.sub(r"[^\w ,'-]", "", str(g.get("role") or "behavioral psychologist"))[:50]
     g["style"] = str(g.get("style") or "calm, precise, thoughtful")[:60]
     g["voice"] = random.choice(FEMALE if g["gender"] == "female" else MALE)
     g["pace_mul"] = random.uniform(0.96, 1.06)
     return g
 
 # ================= scripts =================
+def intro_lines(topic, g, short):
+    tp = topic.rstrip(".")
+    sec = 0 if short else -1
+    if short:
+        return [{"s": "H", "t": f"I'm Alex. With me, {g['name']}, {g['role']}. Today: {tp}.", "sec": sec}]
+    return [{"s": "H", "t": f"Welcome to Psychology Boosting. I'm Alex, and today we're going deep into {tp}.", "sec": sec},
+            {"s": "H", "t": f"My guest is {g['name']}, {g['role']}. {g['name']}, welcome to the show.", "sec": sec},
+            {"s": "G", "t": "Thanks, Alex. This is a subject most people never examine honestly, so I'm glad we're doing it.", "sec": sec}]
+
 def script_short(topic, angle, g):
     j = llm_json(f"Topic: {topic}\nAngle: {angle}\nGuest: {g['name']}, {g['role']}, style: {g['style']}\n"
-                 "Write a dialogue of 125-145 words total. First line: Alex asks a hook question under 14 words. 5-6 exchanges. "
-                 'Add "k" (a 2-4 word on-screen key phrase) to 2 guest lines. End with a memorable closing line from the guest.\n' + FORMAT)
-    lines = tidy(clean(j.get("lines")))
-    lines = refine(lines, 2)
-    for l in lines:
+                 "Alex has already introduced himself, the guest and the topic. Start directly with a hook question from Alex under 14 words. "
+                 "Write 105-120 words total in 5-6 exchanges. The guest must give one surprising idea, one real well-documented example, "
+                 "and one practical or defensive takeaway, explained simply. End with a memorable closing line from the guest.\n" + FORMAT)
+    body = refine(tidy(clean(j.get("lines"))), 2)
+    for l in body:
         l["sec"] = 0
-    return lines
+    return intro_lines(topic, g, True) + body
 
 def plan_more(topic, angle, have, k=12):
     try:
         j = llm_json(f"Topic: {topic}\nAngle: {angle}\nChapters planned so far: {json.dumps([c['title'] for c in have])}\n"
-                     f"Plan {k} NEW chapters that continue and deepen a long expert conversation. Cover: origin stories and historical cases, "
-                     "mechanisms, mental models, strategy, power dynamics, common mistakes, counter-intuitive twists, practical protocols, "
-                     "case studies of ordinary people, philosophical lenses and proverbs, objections, advanced applications. Each must be distinct. "
-                     'JSON: {"chapters":[{"title":"...","idea":"..."}]}', temp=0.9)
+                     f"Plan {k} NEW chapters that continue and deepen a long expert conversation. Cover: origin stories and famous historical cases, "
+                     "mechanisms, mental models, strategy, power dynamics, how manipulation works and how to defend against it, common mistakes, "
+                     "counter-intuitive twists, practical protocols, case studies, philosophical lenses and proverbs, objections, advanced applications. "
+                     'Each must be distinct. JSON: {"chapters":[{"title":"...","idea":"..."}]}', temp=0.9)
     except Exception:
         return []
     out = []
@@ -242,16 +261,18 @@ def plan_more(topic, angle, have, k=12):
     return out
 
 def write_chapter(topic, g, ch, idx, covered, tail, first, last):
-    extra = ("Open with a gripping hook question from Alex that creates curiosity." if first else
-             "This is the FINAL chapter: deliver a memorable closing insight from the guest and a short sign-off from Alex." if last else
+    extra = ("Alex has already introduced himself, the guest and the topic. Start directly with a gripping first question." if first else
+             "This is the FINAL chapter: the guest delivers the most important takeaways and a memorable closing line; Alex gives a short sign-off." if last else
              "Continue naturally from the last lines; no greetings, no re-introductions, no recap of earlier chapters.")
     p = (f"Topic: {topic}\nGuest: {g['name']} ({g['role']}; speaking style: {g['style']})\n"
          f"Chapter {idx + 1}: {ch['title']} - {ch['idea']}\n"
          f"Points already covered (do NOT repeat): {json.dumps(covered[-14:])}\nLast lines: {json.dumps(tail)}\n{extra}\n"
-         "Write 380-450 words in 9-13 exchanges. Alex asks short hard questions. The guest answers with rich concrete detail: a real "
-         "historical episode or thought experiment (general facts only), a mental model, a proverb, a practical step. "
-         'Add "k" (2-4 word on-screen key phrase) to 3 guest lines. Also add "gist": one sentence summary of this chapter.\n'
-         'Return JSON: {"gist":"...","lines":[{"s":"H","t":"..."},{"s":"G","t":"...","k":"..."}]}')
+         "Write 380-450 words in 7-9 exchanges. Alex asks a short hard question, challenges an idea, or adds a surprising fact. "
+         "The guest answers with 60-110 words each. The chapter must contain: one counter-intuitive idea, one real well-documented example "
+         "(famous history, a well-known experiment, a classic book or strategist, described accurately and generally), a plain-language explanation "
+         "with an everyday analogy, and one practical or defensive takeaway. No invented numbers or percentages. "
+         'Also add "gist": one sentence summary of this chapter.\n'
+         'Return JSON: {"gist":"...","lines":[{"s":"H","t":"..."},{"s":"G","t":"..."}]}')
     return llm_json(p, temp=0.85)
 
 def script_long(topic, angle, g):
@@ -300,23 +321,22 @@ def script_long(topic, angle, g):
                 titles.append("Final insights")
         except Exception:
             pass
-    return lines, titles
+    return intro_lines(topic, g, False) + lines, titles
 
 # ================= edit director =================
 def rand_edit():
     r = random
     return dict(mood=r.choice(MOODS), cut_rate=r.choice(["fast", "medium", "medium", "slow"]),
-                caption_pos=r.choice(["bottom", "mid"]), gesture=r.uniform(0.55, 1.0), caption_size=r.randint(40, 52),
+                caption_pos=r.choice(["bottom", "mid"]), caption_size=r.randint(40, 52),
                 pace=r.uniform(0.95, 1.04), caption_color="#FFFFFF", accent=r.choice(ACCENTS),
                 wall=r.choice(PALETTE), wall2=r.choice(PALETTE), studio_accent=r.choice(ACCENTS),
                 desk=r.choice(["#5b3a29", "#2b2b2e", "#6d5846", "#3a2a20", "#1f2f3a"]),
                 center=r.choice(CENTERS), sides=r.sample(SIDES, 2),
-                host_kind=r.choice(KINDS), host_color=r.choice(PALETTE), host_accent=r.choice(["#ffffff", "#d9d9d9", "#c9ada7", "#9db4c0"]),
-                host_hat=r.choice(["beanie", "beanie", "cap", "none"]),
-                host_hat_color=r.choice(["#111111", "#2b2d42", "#4a4e69", "#1b4332", "#5c1a1b"]),
-                guest_kind=r.choice(KINDS), guest_color=r.choice(PALETTE), guest_accent=r.choice(["#ffffff", "#d9d9d9", "#e0c9a6", "#a9c0d0"]),
-                guest_hat=r.choice(["none", "none", "none", "cap", "beanie"]),
-                guest_hat_color=r.choice(["#111111", "#2b2d42", "#4a4e69", "#1b4332", "#5c1a1b"]),
+                host_kind="hoodie", host_color=r.choice(DARK_HOST), host_accent=r.choice(GREYS),
+                host_hat="beanie", host_hat_color="#111111",
+                guest_kind=r.choice(GUEST_KINDS), guest_color=r.choice(GUEST_COLORS),
+                guest_accent=r.choice(["#ffffff", "#d9d9d9", "#e0c9a6", "#a9c0d0"]),
+                guest_hat=r.choice(["none", "none", "none", "cap"]), guest_hat_color=r.choice(["#2b2d42", "#4a4e69", "#1b4332", "#5c1a1b"]),
                 guest_hair=r.choice(HAIRS), guest_hair_color=r.choice(["#1c1816", "#3b2a1e", "#6b4a2b", "#b08d57", "#8a8a8a"]),
                 guest_beard=r.choice(BEARDS), guest_glasses=r.random() < 0.4)
 
@@ -325,32 +345,37 @@ def make_edit(topic, g, lines):
     ex = " ".join(l["t"] for l in lines)[:800]
     try:
         j = llm_json(f"You are a video editing director. Topic: {topic}. Excerpt: {ex}\n"
-                     "Design a distinctive look for this episode. JSON keys: "
-                     f'mood ({"|".join(MOODS)}), cut_rate (fast|medium|slow), caption_pos (bottom|mid), gesture (0.4-1.0), caption_size (38-54), '
-                     "pace (0.95-1.05), accent (hex), wall (hex dark), wall2 (hex dark), studio_accent (hex), desk (hex), "
-                     f'center ({"|".join(CENTERS)}), sides (2 of {SIDES}), host_kind, guest_kind (each of {KINDS}), host_color, host_accent, '
-                     f'guest_color, guest_accent (hex), host_hat (beanie|cap|none), guest_hat (beanie|cap|none), host_hat_color, guest_hat_color (hex), '
+                     "Design the look of this episode. JSON keys: "
+                     f'mood ({"|".join(MOODS)}), cut_rate (fast|medium|slow), caption_pos (bottom|mid), caption_size (38-54), pace (0.95-1.05), '
+                     f'accent (hex), wall (hex dark), wall2 (hex dark), studio_accent (hex), desk (hex), center ({"|".join(CENTERS)}), '
+                     f'sides (2 of {SIDES}), guest_kind (one of {GUEST_KINDS}), guest_color (hex), guest_accent (hex), guest_hat (none|cap), '
                      f'guest_hair ({"|".join(HAIRS)}), guest_hair_color (hex), guest_beard ({"|".join(BEARDS)}), guest_glasses (true|false).',
                      temp=1.0, tries=3)
     except Exception:
         j = {}
-    for k in ("accent", "wall", "wall2", "studio_accent", "desk", "host_color", "host_accent", "guest_color", "guest_accent",
-              "host_hat_color", "guest_hat_color", "guest_hair_color"):
+    for k in ("accent", "wall", "wall2", "studio_accent", "desk", "guest_accent", "guest_hair_color"):
         e[k] = hexok(j.get(k), e[k])
     for k, o in (("mood", MOODS), ("cut_rate", ["fast", "medium", "slow"]), ("caption_pos", ["bottom", "mid"]), ("center", CENTERS),
-                 ("host_kind", KINDS), ("guest_kind", KINDS), ("host_hat", HATS), ("guest_hat", HATS), ("guest_hair", HAIRS),
-                 ("guest_beard", BEARDS)):
+                 ("guest_kind", GUEST_KINDS), ("guest_hat", ["none", "cap"]), ("guest_hair", HAIRS), ("guest_beard", BEARDS)):
         e[k] = pick(j.get(k), o, e[k])
     sd = j.get("sides")
     if isinstance(sd, list) and len(sd) >= 1 and all(s in SIDES for s in sd[:2]):
         e["sides"] = sd[:2]
-    e["gesture"] = clamp(j.get("gesture"), 0.4, 1.0, e["gesture"])
     e["caption_size"] = int(clamp(j.get("caption_size"), 38, 54, e["caption_size"]))
     e["pace"] = clamp(j.get("pace"), 0.95, 1.05, e["pace"])
     if isinstance(j.get("guest_glasses"), bool):
         e["guest_glasses"] = j["guest_glasses"]
     e["wall"], e["wall2"] = dark_hex(e["wall"], 95), dark_hex(e["wall2"], 80)
     e["desk"] = dark_hex(e["desk"], 110)
+    # Alex: always the reference look (black hoodie + beanie), only the shade changes
+    e["host_kind"], e["host_hat"] = "hoodie", "beanie"
+    e["host_color"], e["host_accent"] = random.choice(DARK_HOST), random.choice(GREYS)
+    e["host_hat_color"] = e["host_color"]
+    # guest: clearly different clothes
+    gc = hexrgb(hexok(j.get("guest_color"), random.choice(GUEST_COLORS)))
+    if lum(gc) < 60 or sum(abs(a - b) for a, b in zip(gc, hexrgb(e["host_color"]))) < 150:
+        gc = hexrgb(random.choice(GUEST_COLORS))
+    e["guest_color"] = "#%02x%02x%02x" % gc
     if g["gender"] == "female":
         e["guest_beard"] = "none"
         e["guest_hair"] = random.choice(["long", "long", "short", "curly"])
@@ -365,8 +390,8 @@ def make_meta(topic, lines, short, chapters):
     ex = " ".join(l["t"] for l in lines)[:1800]
     try:
         o = llm_json(f"Topic: {topic}\nTranscript excerpt: {ex}\nWrite 6 distinct YouTube title options for an English podcast episode about "
-                     "self-improvement, psychology, strategy and human behavior. Rules: max 60 characters, main keyword in the first 3 words, "
-                     "strong curiosity or clear benefit, honest, no channel name, no real people, no emojis. "
+                     "dark psychology awareness, self-improvement, strategy, power and human behavior. Rules: max 60 characters, main keyword in the "
+                     "first 3 words, strong curiosity or clear benefit, honest, no channel name, no real people, no emojis. "
                      'JSON: {"titles":["..."]}', temp=0.9)
         ts = [re.sub(r"[<>\"]", "", fix_text(t))[:60] for t in o.get("titles", []) if str(t).strip()]
     except Exception:
@@ -384,7 +409,7 @@ def make_meta(topic, lines, short, chapters):
         d = llm_json(f"Topic: {topic}\nTitle: {best}\nTranscript excerpt: {ex}\nCreate YouTube SEO metadata. JSON keys: "
                      "summary (90-130 words, main keywords in the first two sentences, no links, no sources, no real people's names), "
                      "takeaways (5 short strings), tags (15 strings, no #, max 30 chars each), hashtags (3 single words), "
-                     "thumb_text (two lines separated by '|', ALL CAPS, max 3 words each, curiosity driven).", temp=0.7)
+                     "thumb_text (two lines separated by '|', max 3 words each, curiosity driven, e.g. 'Learn To|Attract People').", temp=0.7)
     except Exception:
         d = {}
     summ = re.sub(r"https?://\S+|www\.\S+", "", str(d.get("summary", topic))).strip()
@@ -406,8 +431,7 @@ def make_meta(topic, lines, short, chapters):
     if short:
         title = title[:50] + " #Shorts"
         desc += "\n#Shorts"
-    th = str(d.get("thumb_text") or "WATCH THIS|NOW")
-    return {"title": title, "description": desc[:4800], "tags": tags or ["psychology"], "thumb": th}
+    return {"title": title, "description": desc[:4800], "tags": tags or ["psychology"], "thumb": str(d.get("thumb_text") or "Watch This|Now")}
 
 # ================= drawing toolkit =================
 def chaikin(pts, n=2):
@@ -469,15 +493,16 @@ class P:
             self.ell(q[0], q[1], w / 2, w / 2, fill=fill)
 
 # ---------- faces ----------
-HOST_FACE = dict(fw=62, ch=82, fh=88, eg=29, erx=16, ery=10, bag=1.0, brow=2.0, nose=31, smile=2.2, droop=0.40, wr=1.0)
+HOST_FACE = dict(fw=60, ch=84, fh=90, eg=28, erx=15, ery=9.5, bag=1.5, brow=3.5, nose=34, smile=1.0, droop=0.48, wr=1.3, patch=True)
 
 def rand_face(seed):
     r = random.Random(seed)
     while True:
-        f = dict(fw=r.uniform(54, 70), ch=r.uniform(70, 92), fh=r.uniform(80, 96), eg=r.uniform(24, 35), erx=r.uniform(13, 19),
-                 ery=r.uniform(8, 12.5), bag=r.uniform(0.3, 1.4), brow=r.uniform(-3, 5), nose=r.uniform(22, 40),
-                 smile=r.uniform(-1.5, 4.5), droop=r.uniform(0.2, 0.55), wr=r.uniform(0.3, 1.5))
-        if abs(f["fw"] - 62) > 4 or abs(f["nose"] - 31) > 5 or abs(f["eg"] - 29) > 3:
+        f = dict(fw=r.uniform(52, 72), ch=r.uniform(68, 94), fh=r.uniform(78, 98), eg=r.uniform(23, 36), erx=r.uniform(13, 19),
+                 ery=r.uniform(8, 12.5), bag=r.uniform(0.3, 1.2), brow=r.uniform(-3, 4), nose=r.uniform(22, 42),
+                 smile=r.uniform(-1.5, 4.5), droop=r.uniform(0.2, 0.55), wr=r.uniform(0.3, 1.5), patch=False)
+        score = (abs(f["fw"] - 60) / 6 + abs(f["nose"] - 34) / 6 + abs(f["eg"] - 28) / 4 + abs(f["ch"] - 84) / 8 + abs(f["droop"] - 0.48) / 0.1)
+        if score >= 3.0:
             return f
 
 def hair_top(p, f, style, col):
@@ -527,10 +552,12 @@ def build_head(f, look, ss):
     right = [(0, -fh), (fw * 0.55, -fh + 4), (fw * 0.88, -fh * 0.62), (fw * 1.0, -fh * 0.25), (fw * 0.93, 10), (fw * 0.84, 32),
              (fw * 0.62, ch * 0.78), (fw * 0.3, ch * 0.96), (0, ch)]
     p.poly(right + [(-x, y) for x, y in reversed(right[1:-1])], fill=SKIN, ol=INK, w=3.0, smooth=2)
+    if f.get("patch"):
+        p.poly([(fw * 0.80, -6), (fw * 0.94, 0), (fw * 0.88, 36), (fw * 0.76, 26)], fill=(108, 108, 114), smooth=1)
     for sg in (-1, 1):
         cx = sg * f["eg"]
         p.line([(cx - f["erx"] * 1.05, f["ery"] - 8), (cx, f["ery"] - 2 + f["bag"] * 3), (cx + f["erx"] * 1.05, f["ery"] - 8)],
-               (188, 172, 198), 3 + f["bag"] * 3, smooth=2)
+               (176, 158, 190), 3 + f["bag"] * 3, smooth=2)
     nz = f["nose"]
     p.line([(-2, -6), (-6, nz * 0.5), (-10, nz * 0.85), (-3, nz), (8, nz * 0.92)], INK, 2.6, smooth=2)
     if f["wr"] > 0.6:
@@ -626,11 +653,11 @@ def build_body(o, ss):
     p.line([(212, 262), (219, 284)], INK, 1.8)
     p.line([(248, 262), (241, 284)], INK, 1.8)
     if k == "hoodie":
-        p.poly([(194, 288), (266, 288), (230, 360)], fill=(120, 120, 128), ol=INK, w=2.2)
+        p.poly([(194, 288), (266, 288), (230, 360)], fill=a, ol=INK, w=2.2)
         p.line([(190, 274), (172, 330), (196, 380)], INK, 3.2, smooth=2)
         p.line([(270, 274), (288, 330), (264, 380)], INK, 3.2, smooth=2)
-        p.line([(206, 322), (202, 402)], (170, 170, 176), 2.6)
-        p.line([(254, 322), (258, 402)], (170, 170, 176), 2.6)
+        p.line([(206, 322), (202, 402)], (150, 150, 156), 2.6)
+        p.line([(254, 322), (258, 402)], (150, 150, 156), 2.6)
     elif k == "suit":
         p.poly([(204, 288), (256, 288), (230, 372)], fill=(245, 245, 245), ol=INK, w=2)
         p.poly([(198, 284), (232, 372), (178, 392), (146, 304)], fill=shade(c, 0.86), ol=INK, w=2.4, smooth=1)
@@ -670,31 +697,21 @@ def ik(s, h, l1=135, l2=130):
     c1, c2 = (mx - uy * hh, my + ux * hh), (mx + uy * hh, my - ux * hh)
     return (c1 if c1[1] > c2[1] else c2), hand
 
-def draw_hand(p, el, hd, style):
-    dx, dy = hd[0] - el[0], hd[1] - el[1]
-    n = math.hypot(dx, dy) or 1
-    ux, uy, px, py = dx / n, dy / n, -dy / n, dx / n
-    c = (hd[0] + ux * 10, hd[1] + uy * 10)
-    p.ell(c[0], c[1], 17, 19, fill=SKIN, ol=INK, w=2.4)
-    p.limb([(c[0] + px * 13, c[1] + py * 13), (c[0] + px * 19 + ux * 9, c[1] + py * 19 + uy * 9)], 8, SKIN, INK, 1.8)
-    if style in ("open", "relax", "point"):
-        for i in (-1.5, -0.5, 0.5, 1.5):
-            ln = {"open": 20, "relax": 9, "point": 5}[style]
-            if style == "point" and i == -1.5:
-                ln = 34
-            a = (c[0] + ux * 12 + px * i * 8, c[1] + uy * 12 + py * i * 8)
-            b = (a[0] + ux * (ln - abs(i) * 3), a[1] + uy * (ln - abs(i) * 3))
-            p.limb([a, b], 7.5, SKIN, INK, 1.8)
-    else:
-        for i in (-1, 0, 1):
-            a = (c[0] + ux * 8 + px * i * 8, c[1] + uy * 8 + py * i * 8)
-            p.line([a, (a[0] + ux * 5, a[1] + uy * 5)], INK, 1.6)
+REST = ((100, 540, "relax"), (360, 540, "relax"))   # arms hang down behind the desk, no hand animation
 
 class Char:
     def __init__(self, face, outfit, look, u):
         self.face, self.outfit, self.look, self.ss = face, outfit, look, 2 * u
         self.body = build_body(outfit, self.ss)
         self.head0 = build_head(face, look, self.ss)
+        # static sleeves
+        pa = P(self.body, self.ss, 0, TOP)
+        col = hexrgb(outfit["color"])
+        fore = SKIN if outfit["kind"] == "tee" else col
+        for root, hand in (((96, 332), REST[0][:2]), ((364, 332), REST[1][:2])):
+            el, hd = ik(root, hand)
+            pa.limb([root, el], 50, col, INK, 2.6)
+            pa.limb([el, hd], 42, fore, INK, 2.6)
 
     def render(self, st):
         ss, f = self.ss, self.face
@@ -709,66 +726,25 @@ class Char:
         if abs(st["tilt"]) > 0.05:
             h = h.rotate(st["tilt"], resample=Image.BICUBIC, center=(150 * ss, 255 * ss))
         im.alpha_composite(h, dest=(max(0, int((80 + st["bx"]) * ss)), max(0, int((-8 + TOP + st["by"]) * ss))))
-        pa = P(im, ss, 0, TOP)
-        col = hexrgb(self.outfit["color"])
-        fore = SKIN if self.outfit["kind"] == "tee" else col
-        for key, root in (("L", (96, 332)), ("R", (364, 332))):
-            x, y, sty = st[key]
-            el, hd = ik(root, (x, y))
-            pa.limb([root, el], 50, col, INK, 2.6)
-            pa.limb([el, hd], 42, fore, INK, 2.6)
-            draw_hand(pa, el, hd, sty)
         return im.reduce(2)
 
 def base_state(f):
     return {"mouth": 0, "smile": f["smile"], "lid": f["droop"], "gaze": 0.8, "brow": 0.0, "tilt_brow": f["brow"], "tilt": 0.0,
-            "bx": 0.0, "by": 0.0, "L": (130, 425, "relax"), "R": (330, 425, "relax")}
+            "bx": 0.0, "by": 0.0}
 
-# ---------- gestures / controller ----------
-SPEAK_G = [((120, 335, "open"), (340, 335, "open")), ((70, 300, "open"), (390, 300, "open")),
-           ((130, 425, "relax"), (330, 262, "point")), ((130, 262, "point"), (330, 425, "relax")),
-           ((150, 300, "point"), (310, 300, "point")), ((120, 425, "relax"), (320, 285, "fist")),
-           ((190, 335, "open"), (270, 335, "open")), ((150, 372, "fist"), (310, 372, "fist"))]
-REST = ((130, 425, "relax"), (330, 425, "relax"))
-SMALL = ((170, 372, "relax"), (290, 372, "relax"))
-THINK_R = ((130, 425, "relax"), (264, 252, "relax"))
-THINK_L = ((196, 252, "relax"), (330, 425, "relax"))
-
+# ---------- face/head controller (blink, nod, brows, gaze, lip sync) ----------
 class Ctl:
-    def __init__(self, k, face, rng, gi):
-        self.k, self.face, self.r, self.gi = k, face, rng, gi
-        self.pos = {"L": [130.0, 425.0], "R": [330.0, 425.0]}
-        self.tg = {"L": [130, 425], "R": [330, 425]}
-        self.sty = {"L": "relax", "R": "relax"}
-        self.g_next, self.g_last = 0.0, -9.0
+    def __init__(self, k, face, rng):
+        self.k, self.face, self.r = k, face, rng
         self.blink_t, self.blink_f = rng.uniform(1, 4), -1
         self.gaze_t, self.gz, self.gt = 0.0, 0.8, 1.0
         self.nod, self.brow = 0.0, 0.0
         self.ph = rng.uniform(0, 6.28)
 
-    def set_g(self, g):
-        for i, h in enumerate("LR"):
-            self.tg[h] = [g[i][0], g[i][1]]
-            self.sty[h] = g[i][2]
-
     def step(self, t, FPS, spk, emph, vis):
         r, dt = self.r, 1.0 / FPS
         me = spk == self.k
         other = spk is not None and not me
-        if me:
-            if (emph and t - self.g_last > 0.55) or t >= self.g_next:
-                self.g_last = t
-                self.set_g(r.choice(SPEAK_G) if r.random() < 0.25 + 0.75 * self.gi else REST)
-                self.g_next = t + r.uniform(1.1, 2.6)
-        elif t >= self.g_next:
-            x = r.random()
-            self.set_g(THINK_R if x < 0.14 else THINK_L if x < 0.24 else SMALL if x < 0.34 else REST)
-            self.g_next = t + r.uniform(2.5, 5.5)
-        kk = 1 - math.exp(-(9.0 if me else 5.0) * dt)
-        for h in "LR":
-            q = self.pos[h]
-            q[0] += (self.tg[h][0] - q[0]) * kk
-            q[1] += (self.tg[h][1] - q[1]) * kk
         if me and emph:
             self.nod, self.brow = 1.0, 6.0
         elif other and emph and r.random() < 0.3:
@@ -791,15 +767,12 @@ class Ctl:
             self.gaze_t = t + r.uniform(1.5, 3.5)
         self.gz += (self.gt - self.gz) * 0.3
         side = 1.0 if self.k == "G" else -1.0
-        ph = self.ph
-        L = (self.pos["L"][0] + 3 * math.sin(2 * math.pi * 0.7 * t + ph), self.pos["L"][1] + 2.5 * math.sin(2 * math.pi * 0.5 * t + ph * 2), self.sty["L"])
-        R = (self.pos["R"][0] + 3 * math.sin(2 * math.pi * 0.6 * t + ph * 3), self.pos["R"][1] + 2.5 * math.sin(2 * math.pi * 0.45 * t + ph), self.sty["R"])
-        f = self.face
-        return {"mouth": vis if me else 0, "smile": f["smile"] + (1.2 + math.sin(t * 0.7 + ph) if other else 0),
+        ph, f = self.ph, self.face
+        return {"mouth": vis if me else 0, "smile": f["smile"] + (0.8 + 0.6 * math.sin(t * 0.7 + ph) if other else 0),
                 "lid": lid, "gaze": self.gz * side, "brow": self.brow, "tilt_brow": f["brow"],
                 "tilt": 1.4 * math.sin(2 * math.pi * 0.09 * t + ph * 1.3) + 0.8 * self.nod,
                 "bx": 1.6 * math.sin(2 * math.pi * 0.11 * t + ph),
-                "by": 1.4 * math.sin(2 * math.pi * 0.27 * t + ph) + 3.0 * self.nod, "L": L, "R": R}
+                "by": 1.4 * math.sin(2 * math.pi * 0.27 * t + ph) + 3.0 * self.nod}
 
 # ================= studio =================
 def lerp(a, b, k):
@@ -841,15 +814,14 @@ def build_studio(e, u):
         pts = [(640 + 70 * math.cos(a / 32 * 2 * math.pi), 150 + 70 * math.sin(a / 32 * 2 * math.pi)) for a in range(33)]
         pg.line(pts, acc + (230,), 16)
         pg.line([(560, 270), (720, 270)], acc + (230,), 14)
-        p.line(pts, shade(acc, 1.2) if max(acc) < 210 else acc, 6)
+        p.line(pts, acc, 6)
         p.line([(560, 270), (720, 270)], acc, 5)
 
     def posters():
         for x0 in (505, 600, 695):
             y0 = 90
             p.poly([(x0, y0), (x0 + 80, y0), (x0 + 80, y0 + 110), (x0, y0 + 110)], fill=shade(wallc, 1.5), ol=INK, w=3)
-            c1 = rng.choice(PALETTE)
-            p.ell(x0 + 40, y0 + 45, 22, 22, fill=hexrgb(c1))
+            p.ell(x0 + 40, y0 + 45, 22, 22, fill=hexrgb(rng.choice(PALETTE)))
             p.poly([(x0 + 10, y0 + 100), (x0 + 40, y0 + 70), (x0 + 70, y0 + 100)], fill=acc)
 
     def shelves(x0, x1):
@@ -902,7 +874,6 @@ def build_studio(e, u):
     glow = glow.filter(ImageFilter.GaussianBlur(14 * u))
     big = Image.alpha_composite(big.convert("RGBA"), glow).convert("RGB")
     bg = big.resize((SW, SH), Image.LANCZOS).filter(ImageFilter.GaussianBlur(1.0 * u))
-    # foreground: desk, props, mics, vignette
     fgb = Image.new("RGBA", (int(1280 * 2 * u), int(720 * 2 * u)), (0, 0, 0, 0))
     q = P(fgb, 2 * u)
     dk = hexrgb(e["desk"])
@@ -996,7 +967,7 @@ def build_audio(lines, g, pace):
         v, sc = (HOST_VOICE, pace * jit) if l["s"] == "H" else (g["voice"], pace * g["pace_mul"] * jit)
         a = rd(tts(l["t"], v, sc))
         gap = 0.28 if l["s"] == "H" else 0.45
-        tl.append({"s": l["s"], "a": t, "b": t + len(a) / SR, "t": l["t"], "k": l.get("k", ""), "sec": l.get("sec", 0)})
+        tl.append({"s": l["s"], "a": t, "b": t + len(a) / SR, "t": l["t"], "sec": l.get("sec", 0)})
         chunks += [a, np.zeros(int(SR * gap), np.float32)]
         t += len(a) / SR + gap
     return np.concatenate(chunks), tl
@@ -1046,7 +1017,7 @@ def viseme(e, z):
         return 4
     return 2
 
-# ================= camera / text =================
+# ================= camera / captions =================
 def plan_cams(tl, short, cut_rate):
     rate = {"fast": (2.6, 4.8), "medium": (4.0, 7.5), "slow": (6.0, 11.0)}[cut_rate]
     shots = []
@@ -1120,35 +1091,28 @@ def caption_chunks(tl, f, maxw, per):
                     lines.append((cur, w))
                     cur, w = [], 0.0
                 x = w + (sp if cur else 0)
-                cur.append((wd, x, a, b))
+                cur.append((wd, x))
                 w = x + wl
             lines.append((cur, w))
             chunks.append({"a": grp[0][1], "b": grp[-1][2], "lines": lines})
     return chunks
 
-def draw_callout(d, OW, OH, text, tt, dur, accent, y):
-    e = ease_back(min(1.0, tt / 0.28))
-    fade = min(1.0, max(0.0, (dur - tt) / 0.25))
-    size = int(OW * 0.06 * (0.45 + 0.55 * min(e, 1.15)) * (0.6 + 0.4 * fade))
+def draw_banner(d, OW, OH, lines, accent, short):
+    size = int(OW * (0.036 if short else 0.026))
     f = font(size)
-    text = text.upper()
-    w = f.getlength(text)
-    x, pad = (OW - w) / 2, size * 0.45
-    d.rounded_rectangle([x - pad, y - pad * 0.5, x + w + pad, y + size * 1.25], radius=int(size * 0.35), fill=accent)
-    d.text((x, y), text, font=f, fill=(15, 15, 18))
-
-def draw_lower(d, OW, OH, title, tt, accent):
-    k = min(ease_out(min(1.0, tt / 0.45)), ease_out(min(1.0, max(0.0, (3.4 - tt) / 0.4))))
-    size = int(OW * 0.028)
-    f = font(size)
-    w = f.getlength(title) + size * 1.8
-    x, y = -w + (w + OW * 0.04) * k, OH * 0.06
-    d.rectangle([x, y, x + w, y + size * 2.2], fill=(14, 14, 18))
-    d.rectangle([x, y, x + 8, y + size * 2.2], fill=accent)
-    d.text((x + size * 1.0, y + size * 0.55), title, font=f, fill=(255, 255, 255))
+    lh = int(size * 1.5)
+    n = 30 if short else 52
+    lines = [ell_text(s, n) for s in lines]
+    w = max(f.getlength(s) for s in lines) + size * 1.8
+    x, y = (OW - w) / 2, OH * 0.04
+    hgt = lh * len(lines) + size * 0.4
+    d.rectangle([x, y, x + w, y + hgt], fill=(14, 14, 18))
+    d.rectangle([x, y, x + 7, y + hgt], fill=accent)
+    for i, s in enumerate(lines):
+        d.text((x + size * 0.9, y + size * 0.25 + i * lh), s, font=f, fill=(255, 255, 255))
 
 # ================= video =================
-def render_video(short, tl, voice, chars, bg, fg, e, u, titles, out):
+def render_video(short, tl, voice, chars, bg, fg, e, u, banner, out):
     FPS = 25 if short else 15
     OW, OH = (720, 1280) if short else (1280, 720)
     SW, SH = bg.size
@@ -1170,24 +1134,16 @@ def render_video(short, tl, voice, chars, bg, fg, e, u, titles, out):
     shots = plan_cams(tl, short, e["cut_rate"])
     csz = int(e["caption_size"] * (1.3 if short else 1.0))
     cf = font(csz)
-    chunks = caption_chunks(tl, cf, OW * 0.86, 3 if short else 5)
+    chunks = caption_chunks(tl, cf, OW * 0.86, 3 if short else 5) if CAPTIONS else []
     lh, sw = int(csz * 1.28), max(2, csz // 12)
-    acc, capc = hexrgb(e["accent"]), hexrgb(e["caption_color"])
-    callouts = [(l["a"] + 0.4, l["a"] + 3.0, l["k"]) for l in tl if l.get("k")]
-    lowers = []
-    if not short and titles:
-        seen = set()
-        for l in tl:
-            if l["sec"] not in seen and l["sec"] < len(titles):
-                seen.add(l["sec"])
-                lowers.append((l["a"], l["a"] + 3.4, titles[l["sec"]]))
-    ctl = {"G": Ctl("G", chars["G"].face, random.Random(random.randint(1, 10 ** 6)), e["gesture"]),
-           "H": Ctl("H", HOST_FACE, random.Random(random.randint(1, 10 ** 6)), e["gesture"])}
+    acc = hexrgb(e["accent"])
+    ctl = {"G": Ctl("G", chars["G"].face, random.Random(random.randint(1, 10 ** 6))),
+           "H": Ctl("H", HOST_FACE, random.Random(random.randint(1, 10 ** 6)))}
     cmd = ["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{OW}x{OH}", "-r", str(FPS), "-i", "-",
            "-i", "work/mix.wav", "-c:v", "libx264", "-preset", "veryfast", "-tune", "animation", "-crf", "24", "-pix_fmt", "yuv420p",
            "-c:a", "aac", "-b:a", "128k", "-movflags", "+faststart", "-shortest", out]
     ff = subprocess.Popen(cmd, stdin=subprocess.PIPE)
-    si = ci = cli = lti = 0
+    si = ci = 0
     for f in range(n):
         t = f / FPS
         sp = spk[f]
@@ -1201,28 +1157,14 @@ def render_video(short, tl, voice, chars, bg, fg, e, u, titles, out):
             ci += 1
         if chunks and chunks[ci]["a"] <= t < chunks[ci]["b"] + 0.3:
             ch = chunks[ci]
-            yoff = (1 - ease_out(min(1.0, (t - ch["a"]) / 0.12))) * 16
-            if short:
-                cy0 = OH * 0.62
-            elif e["caption_pos"] == "mid":
-                cy0 = OH * 0.70
-            else:
-                cy0 = OH * 0.82
+            cy0 = OH * 0.62 if short else (OH * 0.70 if e["caption_pos"] == "mid" else OH * 0.82)
             cy0 -= (len(ch["lines"]) - 1) * lh
             for li, (wsx, wd_) in enumerate(ch["lines"]):
                 x0 = (OW - wd_) / 2
-                for wd, x, a, b in wsx:
-                    d.text((x0 + x, cy0 + li * lh + yoff), wd, font=cf, fill=acc if a <= t < b else capc,
-                           stroke_width=sw, stroke_fill=(0, 0, 0))
-        while cli < len(callouts) and callouts[cli][1] < t:
-            cli += 1
-        if cli < len(callouts) and callouts[cli][0] <= t < callouts[cli][1]:
-            c = callouts[cli]
-            draw_callout(d, OW, OH, c[2], t - c[0], c[1] - c[0], acc, OH * (0.13 if short else 0.10))
-        while lti < len(lowers) and lowers[lti][1] < t:
-            lti += 1
-        if lti < len(lowers) and lowers[lti][0] <= t < lowers[lti][1]:
-            draw_lower(d, OW, OH, lowers[lti][2], t - lowers[lti][0], acc)
+                for wd, x in wsx:
+                    d.text((x0 + x, cy0 + li * lh), wd, font=cf, fill=(255, 255, 255), stroke_width=sw, stroke_fill=(0, 0, 0))
+        if t < 7.0:
+            draw_banner(d, OW, OH, banner, acc, short)
         try:
             ff.stdin.write(fr.tobytes())
         except BrokenPipeError:
@@ -1236,45 +1178,43 @@ def render_video(short, tl, voice, chars, bg, fg, e, u, titles, out):
     if ff.wait() != 0:
         raise RuntimeError("ffmpeg failed")
 
-def thumbnail(chars, bg, fg, u, text, e, path):
+def thumbnail(chars, bg, fg, u, text, path):
     stG = base_state(chars["G"].face)
     stG.update(mouth=3, brow=6.0, lid=chars["G"].face["droop"] * 0.5, tilt=-2.0)
     stH = base_state(HOST_FACE)
-    stH.update(R=(264, 252, "relax"), brow=1.0)
+    stH.update(brow=1.0, tilt=2.0)
     sc = compose(chars, bg, fg, {"G": stG, "H": stH}, u)
-    W, H = 1280, 720
-    cv = ImageEnhance.Brightness(sc.resize((W, H), Image.LANCZOS).filter(ImageFilter.GaussianBlur(6))).enhance(0.45)
+    W, H, pw = 1280, 720, 360
+    cv = Image.new("RGB", (W, H), (255, 255, 255))
     def crop(cx):
-        chh = 400 * u
-        cw = chh * 520 / 720
-        x0, y0 = cx * u - cw / 2, 300 * u - chh / 2
-        return sc.resize((520, 720), Image.LANCZOS, box=(x0, y0, x0 + cw, y0 + chh))
+        chh = 360 * u
+        cw = chh * pw / 720
+        x0, y0 = cx * u - cw / 2, 285 * u - chh / 2
+        return sc.resize((pw, 720), Image.LANCZOS, box=(x0, y0, x0 + cw, y0 + chh))
     def mask(left_fade):
-        a = np.ones((720, 520), np.float32)
-        ramp = np.linspace(0, 1, 100)
+        a = np.ones((720, pw), np.float32)
+        ramp = np.linspace(0, 1, 50)
         if left_fade:
-            a[:, :100] = ramp[None, :]
+            a[:, :50] = ramp[None, :]
         else:
-            a[:, -100:] = ramp[::-1][None, :]
+            a[:, -50:] = ramp[::-1][None, :]
         return Image.fromarray((a * 255).astype(np.uint8))
     cv.paste(crop(GX), (0, 0), mask(False))
-    cv.paste(crop(HX), (760, 0), mask(True))
-    cv = ImageEnhance.Contrast(ImageEnhance.Color(cv).enhance(1.2)).enhance(1.1)
-    parts = [p.strip().upper() for p in text.split("|") if p.strip()][:2] or ["WATCH THIS"]
+    cv.paste(crop(HX), (W - pw, 0), mask(True))
+    cv = ImageEnhance.Contrast(ImageEnhance.Color(cv).enhance(1.15)).enhance(1.08)
+    parts = [p.strip().title() for p in text.split("|") if p.strip()][:2] or ["Watch This"]
     d = ImageDraw.Draw(cv)
     sizes = []
     for p_ in parts:
         s = 170
-        while font(s).getlength(p_) > 720 and s > 60:
+        while font(s).getlength(p_) > 620 and s > 60:
             s -= 6
         sizes.append(s)
-    total = sum(sizes) + 20 * (len(parts) - 1)
-    y = (H - total) / 2 - 20
+    y = (H - (sum(sizes) + 14 * (len(parts) - 1))) / 2 - 10
     for i, (p_, s) in enumerate(zip(parts, sizes)):
         f = font(s)
-        d.text(((W - f.getlength(p_)) / 2, y), p_, font=f, fill=(255, 255, 255) if i == 0 else hexrgb(e["accent"]),
-               stroke_width=9, stroke_fill=(0, 0, 0))
-        y += s + 20
+        d.text(((W - f.getlength(p_)) / 2, y), p_, font=f, fill=(17, 17, 17) if i == 0 else (225, 20, 20))
+        y += s + 14
     cv.save(path, quality=92)
 
 # ================= upload =================
@@ -1337,15 +1277,13 @@ def upload(path, meta, thumb):
 # ================= Friday post =================
 def friday_post(state):
     topic, angle = pick_topic(state)
-    j = llm_json(f"Topic: {topic}\nAngle: {angle}\nWrite a Friday community post for a channel about self-improvement and psychology. JSON keys: "
-                 "text (90-120 words, thoughtful, ends with a question to the audience, no links, no sources), "
+    j = llm_json(f"Topic: {topic}\nAngle: {angle}\nWrite a Friday community post for a channel about self-improvement, dark psychology awareness and strategy. JSON keys: "
+                 "text (90-120 words, thoughtful, ends with a question to the audience, no links, no sources, no invented statistics), "
                  "quote (a short original insight, max 14 words), hashtags (list of 4).")
     e, u = rand_edit(), 1.0
     chars = make_chars(e, rand_face(random.randint(1, 10 ** 6)), u)
     bg, fg = build_studio(e, u)
-    st = base_state(HOST_FACE)
-    st.update(R=(264, 252, "relax"), mouth=0)
-    sts = {"G": base_state(chars["G"].face), "H": st}
+    sts = {"G": base_state(chars["G"].face), "H": base_state(HOST_FACE)}
     sc = compose(chars, bg, fg, sts, u)
     chh = 420 * u
     img = sc.resize((1080, 1080), Image.LANCZOS, box=(HX * u - chh / 2, 290 * u - chh / 2, HX * u + chh / 2, 290 * u + chh / 2))
@@ -1394,14 +1332,13 @@ def main():
     if short and tl[-1]["b"] > 58:
         voice, tl = build_audio(lines, g, max(0.8, pace * 58 / tl[-1]["b"]))
     if not short and tl[-1]["b"] > LONG_MAX:
-        mx = max(l["sec"] for l in lines)
-        while tl[-1]["b"] > LONG_MAX and mx > 1:
-            mx -= 1
-            keep = [l for l in lines if l["sec"] < mx or l["sec"] == max(x["sec"] for x in lines)]
-            lines = keep
+        last = max(l["sec"] for l in lines)
+        mids = sorted({l["sec"] for l in lines if 0 <= l["sec"] < last}, reverse=True)
+        for m in mids:
+            lines = [l for l in lines if l["sec"] != m]
             voice, tl = build_audio(lines, g, pace)
-            if all(l["sec"] != mx for l in lines):
-                continue
+            if tl[-1]["b"] <= LONG_MAX:
+                break
     mix = np.concatenate([voice, np.zeros(SR, np.float32)])
     mix += music(e["mood"], len(mix))
     wr("work/mix.wav", mix * 0.95)
@@ -1411,21 +1348,22 @@ def main():
     bg, fg = build_studio(e, u)
     chapters = []
     if not short:
+        chapters = [(0, "Introduction")]
         seen = set()
         for l in tl:
-            if l["sec"] not in seen and l["sec"] < len(titles):
-                seen.add(l["sec"])
-                chapters.append((l["a"], titles[l["sec"]]))
+            s = l["sec"]
+            if 0 <= s < len(titles) and s not in seen:
+                seen.add(s)
+                chapters.append((l["a"], titles[s]))
         chapters = chapters[:40]
-        if chapters:
-            chapters[0] = (0, chapters[0][1])
     meta = make_meta(topic, lines, short, chapters)
+    banner = ["HOST   Alex", f"GUEST   {g['name']}, {g['role']}", f"TOPIC   {topic}"]
     video = "out/video.mp4"
-    render_video(short, tl, voice, chars, bg, fg, e, u, titles, video)
+    render_video(short, tl, voice, chars, bg, fg, e, u, banner, video)
     thumb = None
     if not short:
         thumb = "out/thumb.jpg"
-        thumbnail(chars, bg, fg, u, meta["thumb"], e, thumb)
+        thumbnail(chars, bg, fg, u, meta["thumb"], thumb)
     json.dump({"topic": topic, "guest": g, "edit": e, "meta": meta,
                "lines": [{"s": l["s"], "t": l["t"]} for l in tl], "minutes": round(tl[-1]["b"] / 60, 1)},
               open("out/info.json", "w"), indent=1)
