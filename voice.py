@@ -1,4 +1,5 @@
 import subprocess, sys, wave
+import numpy as np
 from config import PIPER_VOICE, WHISPER_MODEL
 _w = None
 
@@ -25,3 +26,13 @@ def concat(wavs, gap, out):
         for p in wavs:
             with wave.open(str(p)) as f: o.writeframes(f.readframes(f.getnframes()))
             o.writeframes(sil)
+
+def envelope(wav, fps):
+    """Loudness 0..1 per video frame (drives mouth movement)."""
+    with wave.open(str(wav)) as w:
+        sr = w.getframerate(); x = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16).astype(np.float64)
+    nf = int(len(x) / sr * fps) + 1; cs = np.concatenate([[0], np.cumsum(x * x)])
+    idx = np.clip(np.round(np.arange(nf + 1) * sr / fps).astype(int), 0, len(x))
+    rms = np.sqrt((cs[idx[1:]] - cs[idx[:-1]]) / np.maximum(idx[1:] - idx[:-1], 1))
+    e = np.clip(rms / (np.percentile(rms, 95) + 1e-6), 0, 1); e = np.convolve(e, [.25, .5, .25], "same")
+    return e.round(3).tolist()
