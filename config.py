@@ -15,5 +15,5 @@ LONG_MIN = 105               # minutes (minimum target)
 WRITE_BUDGET = 170 * 60      # seconds allowed for script+voice phase (keeps run under GitHub's 6h limit)
 GAP, FPS = 0.6, 24
 SHOT_LONG, SHOT_SHORT = 18, 4.5   # seconds per visual shot
-STYLE_LONG = "photorealistic 3D render, PBR materials, ambient occlusion, volumetric light, cinematic 35mm, ultra detailed, no text"
-STYLE_SHORT = "photorealistic 3D render, PBR materials, volumetric light, cinematic, ultra detailed, vertical composition, no text"
+STYLE_LONG = "stylized 3D animated film background, vibrant colors, soft cinematic lighting, highly detailed, empty scene, no people, no text"
+STYLE_SHORT = "stylized 3D animated film background, vibrant colors, soft cinematic lighting, vertical composition, empty scene, no people, no text"
