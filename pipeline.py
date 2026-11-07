@@ -1,6 +1,8 @@
-import time, json, logging
-from concurrent.futures import ThreadPoolExecutor
-import rss_feed, writer, director, voice, visuals, render, uploader
+import time, json, logging, multiprocessing
+from pathlib import Path
+import numpy as np
+from concurrent.futures import ProcessPoolExecutor
+import rss_feed, writer, director, voice, visuals, render, animator, uploader
 from config import *
 log = logging.getLogger("pipe")
 
@@ -31,30 +33,34 @@ def build(kind):
             ch = writer.extra_chapter(plan, topic, body + [closing]); body.append(ch); extras += 1; do(ch)
         do(closing)
     # master timeline
-    t, scenes, cw, titles = 0.0, [], [], []
+    t, scenes, cw, titles, starts = 0.0, [], [], [], []
     for s in segs:
-        s0 = t
+        s0 = t; starts.append(s0)
         if s["heading"]: titles.append((t, s["heading"]))
         for sh in s["shots"]:
             d = (s["dur"] + GAP) * sh["frac"]
             scenes.append({"id": f"SCENE_{len(scenes) + 1:03d}", "start": round(t, 2), "end": round(t + d, 2), "dur": d,
-                           "narration": sh["text"], "prompt": sh["prompt"], "camera": sh["camera"], "light": sh["light"], "characters": sh["chars"]})
+                           "narration": sh["text"], "prompt": sh["prompt"], "camera": sh["camera"], "light": sh["light"], "characters": sh["chars"], "act": sh["act"]})
             t += d
         cw += [(w, s0 + a, s0 + b) for w, a, b in s["words"]]; t = s0 + s["dur"] + GAP
     (work / "manifest.json").write_text(json.dumps({"characters": chars, "scenes": scenes}, indent=1))
     log.info(f"narration {t / 60:.1f} min, {len(scenes)} scenes, {len(chars)} characters")
-    ok, jobs = 0, []
+    env = np.zeros(int(t * FPS) + FPS * 2)                      # narration loudness per frame -> lip-sync
+    for s, s0 in zip(segs, starts):
+        e = voice.envelope(s["wav"], FPS); i = round(s0 * FPS); e = e[:max(0, len(env) - i)]; env[i:i + len(e)] = e
+    cm = {c["id"]: c for c in chars}; ok, jobs = 0, []
     for i, sc in enumerate(scenes):
-        img = work / f"i{i:04d}.png"; ok += bool(visuals.image(sc["prompt"], img, short, i))
-        jobs.append((img, sc["dur"], work / f"c{i:04d}.mp4", W, H, sc["camera"]))
+        img = work / f"i{i:04d}.png"; ok += bool(visuals.image(sc["prompt"], img, short, i)); a = round(sc["start"] * FPS)
+        jobs.append(dict(img=str(img), out=str(work / f"c{i:04d}.mp4"), W=W, H=H, dur=sc["dur"], cam=sc["camera"], act=sc["act"],
+                         chars=[cm[x] for x in sc["characters"] if x in cm][:2], env=env[a:a + round(sc["dur"] * FPS) + 2].tolist(), seed=i, idx=i))
         if i % 20 == 0: log.info(f"image {i}/{len(scenes)}")
     if ok < 0.7 * len(scenes): raise RuntimeError(f"Image generation failed for too many scenes ({ok}/{len(scenes)}); not publishing")
-    log.info("rendering clips")
-    with ThreadPoolExecutor(4) as ex: list(ex.map(lambda a: render.clip(*a), jobs))
+    log.info("animating scenes (characters, camera, lip-sync)")
+    with ProcessPoolExecutor(4, mp_context=multiprocessing.get_context("fork")) as ex: list(ex.map(animator.render_scene, jobs))
     voice.concat([s["wav"] for s in segs], GAP, work / "all.wav")
     render.ass(work / "captions.ass", W, H, short, cw, titles)
     final = work / "final.mp4"; log.info("assembling final video")
-    render.assemble(work, [j[2] for j in jobs], work / "all.wav", final)
+    render.assemble(work, [Path(j["out"]) for j in jobs], work / "all.wav", final)
     # quality control before publishing
     vdur = render.probe(final); blank = render.blank_frames(final, vdur, work)
     qc = {"video_seconds": round(vdur, 1), "expected_seconds": round(t, 1), "scenes": len(scenes), "images_ok": ok, "blank_sample_frames": blank}
