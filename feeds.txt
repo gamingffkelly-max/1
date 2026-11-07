@@ -1,0 +1,6 @@
+# প্রতি লাইনে একটি RSS ফিড (ফাইন্যান্স)
+https://www.federalreserve.gov/feeds/press_all.xml
+https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10000664
+https://feeds.content.dowjones.io/public/rss/mw_topstories
+https://finance.yahoo.com/news/rssindex
+http://feeds.bbci.co.uk/news/business/rss.xml
