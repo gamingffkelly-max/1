@@ -1,5 +1,6 @@
 import json, re, hashlib, feedparser, trafilatura
 from config import FEEDS, STATE
+feedparser.USER_AGENT = "Mozilla/5.0 (compatible; FinanceVideoBot/1.0)"
 
 def load():
     return json.loads(STATE.read_text()) if STATE.exists() else {"used": [], "runs": []}
@@ -17,7 +18,7 @@ def pick_topic():
                           "summary": _c(e.get("summary")), "link": l,
                           "ts": tuple(e.get("published_parsed") or (0,) * 9)})
     fresh = [i for i in items if i["id"] not in used and len(i["title"]) > 15]
-    if not fresh: raise RuntimeError("No fresh RSS items")
+    if not fresh: raise RuntimeError("No fresh RSS items (all feeds empty or already used)")
     fresh.sort(key=lambda i: i["ts"], reverse=True)
     main = fresh[0]
     text = ""
