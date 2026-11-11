@@ -16,7 +16,8 @@
   "969798b305678973c01b85a8253c692b",
   "990431ebeb77e925a1ffa8f340159e65",
   "49829581566e89b6f6d0fc4bc9d5b175",
-  "cc64fd18d331c61306a8bb033fc30f30"
+  "cc64fd18d331c61306a8bb033fc30f30",
+  "3ab3c12ec1300bae82413fa88c580aa6"
  ],
  "runs": [
   {
@@ -120,6 +121,12 @@
    "title": "Alibaba T-Head: Rivaling Nvidia in Semiconductor Market",
    "video": "1QP6TizDMpk",
    "time": "2026-11-11 12:34:30"
+  },
+  {
+   "kind": "short",
+   "title": "Nvidia Governance: Why Keeping Jensen Huang Matters - But End the One-Man Show #Shorts",
+   "video": "CglkxO3NE4g",
+   "time": "2026-11-11 13:00:27"
   }
  ]
 }
