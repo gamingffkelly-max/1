@@ -1,20 +1,77 @@
 {
   "version": 2,
   "books": {
-    "nb-by-j-c-campbell": {
-      "title": "NB by J. C.",
-      "author": "James Campbell",
-      "norm": "nb by j c",
-      "surname": "campbell",
-      "status": "skipped",
-      "attempts": 0,
-      "concepts": [],
+    "dom-casmurro-assis": {
+      "title": "Dom Casmurro",
+      "author": "Machado de Assis",
+      "norm": "dom casmurro",
+      "surname": "assis",
+      "status": "failed",
+      "attempts": 1,
+      "concepts": [
+        "Introduction to Bento Santiago",
+        "Youthful aspirations and societal expectations",
+        "The seminary's impact",
+        "Courtship with Capitu",
+        "Marriage to Dona Católica",
+        "Jealousy towards Escobar",
+        "Doubt in priesthood decision",
+        "Reconstruction of childhood home",
+        "The mystery unravelled or obscured",
+        "Capitus true nature revealed",
+        "Societal critique through character actions"
+      ],
       "shorts": [],
       "long": {},
-      "first_seen": 1794763217.9993296,
-      "claimed_at": 1794763217.999333,
-      "retry_at": 1795972873.770956,
-      "skip_reason": "no short idea available"
+      "first_seen": 1794763803.196191,
+      "claimed_at": 1794763803.196194,
+      "ideas": [
+        {
+          "term": "Introduction to Bento Santiago",
+          "text": "In \"Dom Casmurro,\" Joaquim Maria Machado de Assis presents us with a labyrinthine narrative through the eyes of Bento Santiago, who weaves his life story into an autobiography that blurs past and present. This complex tapestry is not merely about recounting events but delves deeply into themes such as memory's fragility and perception’s subjectivity within societal constraints. Bento reflects on a youthful passion for Capitu, whose allure transcends the social norm of priestly aspirations pushed by his parents—a rebellion against authoritarian expectations that speak to broader questions about individual agency and cultural identity in Brazil's monarchy. This personal resistance is emblematic within a society grappling with modernity, where Machado de Assis himself navigates the crossroads of classical education through his self-directed studies amidst Romanticism’s retreat from realistic social critique—a hallmark trait in Brazilian literature known as autodidactism. The narrative structure is meticulously crafted, akin to an intricate dance between what's said and unsaid; Bento Santiago employs first-person retrospective storytelling that invites readers into his world but never fully discloses it—a veil of obfuscation. He shares memories fraught with jealousy, casting shadows over the love he once held dear and how societal pressures sculpted their paths divergently when they chose to marry Capitu instead of pursuing priesthood careers as anticipated by his family's wishes—a poignant illustration within a culture steeply rooted in religious tradition. Machado de Assis, through Bento Santiago’s eyes"
+        },
+        {
+          "term": "Youthful aspirations and societal expectations",
+          "text": "In the rich tapestry of 'Dom Casmurro,' Joaquim Maria Machado de Assis masterfully weaves a narrative that scrutinizes Brazil's societal norms, particularly among its elite during an era marked by significant cultural flux. Bento Santiago stands at life’s crossroads—his youthful aspirations and romantic entanglement with Capitu (Dona Católica) become a microcosm for examining how early experiences shape one's identity within the strictures of societal expectations. As Machado de Assis himself, an autodidact who later embraced multiple languages to enrich his literary palette and realist perspective in Brazilian culture, Santiago’s self-told story reflects a profound engagement with personal history against collective consciousness. The novel's narrative structure is not merely about recounting events but questioning the very essence of memory itself—its reliability when filtered through subjectivity and societal influence (1). Bento Santiago, or 'Bentinho,' crafts his autobiography in a first-person retrospective style that invites readers into an intimate yet complex recollection. The memoir format is deliberate; it allows for introspection but also introduces layers of doubt and uncertainty as we navigate through past emotions colored by present perception (2). The societal stakes are significant here—the novel delves deep, questioning how early life experiences molded Santiago's identity amidst the rigid structures upheld during Brazil’s First Reign. The narrative is set against a backdrop where cultural centers like Rio were bastions of elite society (3). This historical setting becomes pivotal in understanding Bento and"
+        },
+        {
+          "term": "The seminary's impact",
+          "text": "In \"Dom Casmurro,\" readers are invited to delve into the life of Bento Santiago, known in jest as Dom Casmurro. This autobiographical narrative unfolds through a first-person retrospective lens that demands an active engagement from its audience; we must navigate his subjective perceptions and selectively pieced memories to grasp how societal pressures sculpted him into the man he becomes, particularly in matters of love entangled with religious duty. The young Bento Santiago's life is marked by a poignant conflict between personal desire and familial obligation—a theme echoing across generations within Brazilian society’s rigid class structures. At fifteen years old, he finds himself at the crossroads of destiny when his mother pressures him to forgo youthful romance in favor of priesthood amidst a backdrop where slavery's shadow still lingers and education is scarce—a reality that only fuels Bento Santiago’s determination. The stakes here are immense, as this internal battle not merely shapes his future but also critiques the societal norm dictating one must sacrifice personal fulfillment for collective duty; it questions what we lose when love and ambition clash against cultural expectations—a conundrum that resonates profoundly within Brazilian history. Bento Santiago's path from an orphanage to literary success is not just a testament of autodidactism but also highlights the triumph over limited formal education, reflecting on societal constraints and how they are transcended through sheer willpower—a beacon for those navigating similar"
+        },
+        {
+          "term": "Courtship with Capitu",
+          "text": "In \"Dom Casmurro,\" the intricate dance between romantic idealism and real-world constraints unfurls through Bento Santiago's courtship with Capitu, a narrative that Machado de Assis crafted with meticulous care. The protagonist recalls his youthful infatuation in first person retrospective style—a technique allowing readers to explore the personal depth of memory and perception shaped by time itself. Bento Santiago's tale is not just a recollection but an exploration, reflecting upon societal norms through both individual narrative arcs and digressive commentaries on Brazilian life during his era—a period when realism intertwined with romantic idealization to form Romantic Realism. Bento's musings draw parallels between himself and Desdemona, whose love in Shakespeare’s \"Othello\" encounters obstacles of racial prejudice; this comparison underscores the novel's core conflict where Capitu faces societal constraints similar to those encountered by women centuries apart. The uncertainty surrounding whether or not she betrayed her husband Bentinho adds layers, as readers are invited into a labyrinthine story woven with ambiguity and self-reflection rather than clear answers. The narrative employs obfuscation through Machado de Assis' eloquent prose—a deliberate choice that deepens the textual complexity for those seeking to untangle truth from Bentinho’s potential deceitfulness and subjectivity in his account of events, contrasted with Capitu as a character embodying both clever wit and steadfast fidelity. Interpreting Machado de Assis' narrative is no simple task; it requires peeling back layers wherein the author himself serves"
+        },
+        {
+          "term": "Marriage to Dona Católica",
+          "text": "In \"Dom Casmurro,\" Joaquim Maria Machado de Assis crafts a narrative that transcends mere storytelling to interrogate the very nature of human relationships within rigid societal confines. The tale unfolds through Bento Santiago, whose memoir delivers an introspective account tinged with both youthful romance and profound personal dilemmas stemming from his marriage to Capitu—a union that becomes a battleground for conflicting desires of duty versus love amidst the backdrop of Brazil's societal strictures. The novel is set against Second Reign society, where patriarchal norms dictate life’s trajectory with unyielding force and expectations are often at odds with individual aspirations. Bento Santiago embarks on a journey marked by seminary education followed unexpectedly into matrimony—a decision fraught not only with personal unease but also societal reproach due to the interracial nature of his union, hinting at underlying racial tensions and class distinctions. This aspect is significant as it mirrors Brazil's historical struggle with its own identity amidst modernist aspirations for religious freedom championed by movements like the Liberal Party during Machado de Assis’ lifetime; a period when societal norms were both upheld rigorously and questioned fervently. Machado employs psychoanalytic criticism to unravel Bento's subconscious, allowing readers an intimate glimpse into the protagonist's internal conflicts as he grapples with his sense of duty against a heart yearning for freedom and authenticity. This methodology sheds light on how personal experiences are intrinsically linked to"
+        },
+        {
+          "term": "Jealousy towards Escobar",
+          "text": "Dom Casmurro, a labyrinthine tale woven by Machado de Assis himself, invites us to delve into the heart of Brazilian society and its intricate social fabric. The protagonist Bento Santiago recounts his journey with an air of retrospective reflection that is both personal yet riddled with uncertainties—a narrative technique known as first-person retrospection, where past events are filtered through the present lens, colored by memory and subjective interpretation. Bentinho's life unfurls like a tapestry rich in hues of youthful passion intertwined with solemn seminary studies; an education steeped not only in religious doctrine but also classical languages that would shape his worldview profoundly under the guidance of Father Silveira Sarmento. Here, we see Assis's use of autodidactism—a testament to Bento’s self-driven quest for knowledge outside formal academe and an embracement of cultural diversity that marked his literary development during Brazilian Realist movement when literature sought truth in the commonplace. The crux at which we find ourselves lies heavily within jealousy—a green-eyed specter haunting Bento's relationship with Capitu, a woman who symbolizes both love and societal expectation as Dona Católica by marriage into his family circle. This unrequited affection becomes the narrative fulcrum around which swings our protagonist’s entire worldview—jealousy is not merely an emotion but a force that propels Bento towards questioning paternity and societal norms alike, illustrating how deeply personal tribulations can mirror larger social constructs. Assis cleverly employs"
+        },
+        {
+          "term": "Doubt in priesthood decision",
+          "text": "In \"Dom Casmurro,\" Machado de Assis masterfully constructs a narrative where the reliability of memory and societal influence intertwine, leaving readers to navigate through an intricate labyrinth of personal experience filtered by social perception. The protagonist Bento Santiago—also known as Dom Casmurro in his own life's memoir—narrates with a first-person retrospective lens that complicates the reader’s understanding, casting shadows over every recollection and event recounted within these pages. As we delve deeper into Bento Santiago's tale of youthful romance followed by separation from his beloved Capitu—a narrative steeply rooted in realist movement principles that Machado de Assis himself championed —we begin to recognize the unreliable nature inherent within this personal memoir. Machado’s technique, a blend of autodidactism and literary finesse, crafts an ambiguous reality where fact intertwines with fiction; each turn in Bento's life is carefully orchestrated to mirror Brazilian society at the time yet remains subjective due to his own biases. This narrative choice prompts readers not only into a dialogue about historical context but also encourages introspection on preconceived perceptions and societal norms, especially concerning class distinctions that heavily influence personal relationships within Brazilian culture during Machado’s era. The central tension in the novel arises from Bento's conflicting feelings of resentment towards his father-in-law for reasons not entirely clear but implied to be influenced by social and economic factors, which are intertwined with personal emotions like jealousy and"
+        },
+        {
+          "term": "Reconstruction of childhood home",
+          "text": "In the labyrinth of 'Dom Casmurro,' Machado de Assis employs a first-person retrospective narration, casting Joaquim Maria Bento Santiago as both protagonist and storyteller. This technique allows readers to navigate through memories with an older perspective that blurs time's clarity between past experiences and present reflections. The significance of this approach lies in its ability to mirror the complexity within Brazilian society itself, where historical layers intertwine personal narratives with collective memory. Bento Santiago embarks on a journey through life recollected from his later years—his seminary education under Father Silveira Sarmento's guidance and subsequent legal studies formulating an educated mindset amidst the backdrop of Brazil’s rigid social structure, particularly concerning class distinctions. His marriage to Capitu stands as a monumental chapter in this introspective memoir; yet it is shrouded with ambiguity that challenges readers' perception and understanding—a testament by Machado de Assis himself crafting an unreliable narration where truths are veiled, leaving interpretations open. The author’s deliberate obfuscation serves a dual purpose: it immerses the audience in rich psychological landscapes while simultaneously demanding active engagement to discern reality from fiction within Bento Santiago's account—a method that resonates deeply with those who, like dedicated readers translating Machado de Assis’ work years later, find complexity rewarded through persistence. This narrative strategy is not without its stakes; the potential circular reasoning it invites risks ensnaring audiences in a web of doubt about historical"
+        },
+        {
+          "term": "The mystery unravelled or obscured",
+          "text": "In exploring the labyrinthine narrative of Machado de Assis's \"Dom Casmurro,\" we encounter Bento Santiago, whose retrospective first-person account paints a vivid yet subjective tapestry. The novel invites readers into an intimate dance with uncertainty as they grapple to discern the reliability of this central character amidst his allegations against Capitu. This unreliable narration—a hallmark in modernist literature pioneered by Machado de Assis himself—raises questions about memory's trustworthiness and perception’s distortion due to personal bias or deceitfulness, leaving readers ensnared within a web of ambiguity. The protagonist Bento Santiago recounting his past is not just an exercise in storytelling but also serves as a mirror reflecting Brazil's societal norms and the complexity inherent in human relationships—particularly those tainted by jealousy, regret, and unspoken truth. As we delve into Bento’s memoir of youthful romance followed by an intense seminary education where he studies religious texts alongside Capitu (Dona Católica), his narrative takes shape through a series of interpretations based on fleeting gestures rather than direct confessions, casting shadows over the clarity we seek in truth. Machado de Assis's legacy as Brazil’s greatest writer is evident not only within \"Dom Casmurro\" but also across his body of work that often scrutinizes societal structures and human psychology through a realist lens, with autodidacticism playing no small part in shaping this reflective narrative style. The author's own life experiences as an epitaph for Bras"
+        },
+        {
+          "term": "Capitus true nature revealed",
+          "text": "Machado de Assis, through his narrative prowess in Dom Casmurro, invites readers into a labyrinth of human emotions and societal critique. The novel unfolds as Bento Santiago pens the memoirs that delineate an existence marked by youthful romance turned melancholic reflection amidst rigid Brazilian social structures. His journey from seminary student to married man, intertwined with Capitu's enigmatic presence and their eventual separation due to societal constraints, serves as the narrative scaffolding for a deeper exploration of reality versus perception in literature itself—a concept central not only within Brazilian society but also resonating across cultures. The intricate tapestry that Assis weaves is marked by epitaphs metaphorically etched into the memoirs, suggesting their finality and reflective nature as if Bras Cubas' posthumous words echo in Bento’s recounting of life events long gone. This method not only blurs lines between truthfulness and fiction but also prompts readers to question what they accept at face value within the storyline crafted by Assis, challenges them on their understanding of reality as dictated through a narrative lens—a hallmark feature in metafiction that Machado de Assis expertly employs. Machado's nuanced portrayal extends to his autodidacticism and influence from the Realist movement, infusing Dom Casmurro with layers of cultural significance tied deeply into Portuguese literary roots while simultaneously confronting colonial legacies through urbanization’s impact on societal narratives. Bento Santiago emerges as more than a mere character; he"
+        },
+        {
+          "term": "Societal critique through character actions",
+          "text": "In the heart of Brazil's rich literary tradition, \"Dom Casmurro\" stands as a monumental work that delves deep into societal critique through its intricate tapestry woven by Joaquim Maria Machado de Assis. The novel invites readers on an exploratory journey where characters are not mere pawns but active participants in the unfolding drama, shaping and reflecting their world's cultural influences with profound resilience against rigid class structures inherent to Brazilian society during its Second Reign period. Machado de Assis himself emerges as a figure of intellectual defiance; his mixed-race heritage juxtaposed by an apolitical stance that subtly hints at abolitionist sympathies, revealing the complex interplay between personal beliefs and societal roles during times when normative expectations were stringently enforced. Through Bento Santiago's memoir-like narration—a first-person retrospective lens tinged with obfuscation by Machado de Assis’ skilled handwriting—we witness the personal evolution of a character ensnared in youthful romance, seminary studies under an oppressive educational system reminiscent of Rio's realist movement. Santiago narrates not only his life but also critiques it with each recollection and digressive commentary on Brazilian social dynamics—a literary embodiment of the author’s own navigation through a world where class divisions are stark, yet fluid boundaries often blur within personal experiences. The story's progression unraveling is meticulously analyzed using multi-pass reading strategies that dissect narrative movement and apply critical framing to connect individual actions with broader societal patterns—a methodology"
+        }
+      ],
+      "last_error": "TTS failed: Here lies why this analysis matters: these literary critique"
     },
     "whose-body-sayers": {
       "title": "Whose Body?",
@@ -37,13 +94,29 @@
         }
       ],
       "last_error": "('invalid_request: Missing required parameter: refresh_token', {'error': 'invalid_request', 'error_description': 'Missing required parameter: refresh_token'})"
+    },
+    "nb-by-j-c-campbell": {
+      "title": "NB by J. C.",
+      "author": "James Campbell",
+      "norm": "nb by j c",
+      "surname": "campbell",
+      "status": "skipped",
+      "attempts": 0,
+      "concepts": [],
+      "shorts": [],
+      "long": {},
+      "first_seen": 1794763217.9993296,
+      "claimed_at": 1794763217.999333,
+      "retry_at": 1795972873.770956,
+      "skip_reason": "no short idea available"
     }
   },
   "rss_seen": [
     "https://www.nytimes.com/2023/05/22/books/review/martin-amis.html",
     "https://www.nytimes.com/2023/05/22/books/james-campbell-nb-by-jc.html",
     "https://www.nytimes.com/2023/05/22/books/fires-in-the-dark-kay-redfield-jamison.html",
-    "https://www.nytimes.com/2023/05/21/books/review/dorothy-sayers-whose-body-at-100.html"
+    "https://www.nytimes.com/2023/05/21/books/review/dorothy-sayers-whose-body-at-100.html",
+    "https://www.nytimes.com/2023/05/22/books/review/machado-de-assis-dom-casmurro.html"
   ],
   "playlists": {}
 }
