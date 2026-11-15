@@ -1,0 +1,5 @@
+.env
+work/
+output/
+client_secret.json
+__pycache__/
