@@ -1,0 +1,49 @@
+{
+  "version": 2,
+  "books": {
+    "nb-by-j-c-campbell": {
+      "title": "NB by J. C.",
+      "author": "James Campbell",
+      "norm": "nb by j c",
+      "surname": "campbell",
+      "status": "skipped",
+      "attempts": 0,
+      "concepts": [],
+      "shorts": [],
+      "long": {},
+      "first_seen": 1794763217.9993296,
+      "claimed_at": 1794763217.999333,
+      "retry_at": 1795972873.770956,
+      "skip_reason": "no short idea available"
+    },
+    "whose-body-sayers": {
+      "title": "Whose Body?",
+      "author": "Dorothy L. Sayers",
+      "norm": "whose body",
+      "surname": "sayers",
+      "status": "failed",
+      "attempts": 1,
+      "concepts": [
+        "Aristotle"
+      ],
+      "shorts": [],
+      "long": {},
+      "first_seen": 1794763278.861862,
+      "claimed_at": 1794763278.861866,
+      "ideas": [
+        {
+          "term": "Aristotle",
+          "text": "Aristotle (Ancient Greek: Ἀριστοτέλης, romanized: Aristotélēs; 384–322 BC) was an ancient Greek philosopher and polymath. His writings span the natural sciences, philosophy, linguistics, economics, politics, psychology, and the arts. As the founder of the Peripatetic school of philosophy in the Lyceum in Athens, he began the wider Aristotelian tradition that followed, which set the groundwork for the development of modern science.\nLittle is known about Aristotle's life. He was born in the city of Stagira in Chalkidiki (northern Greece) during the Classical period. His father, Nicomachus, died when Aristotle was a child, and he was brought up by a guardian. At around eighteen years old, he joined Plato's Academy in Athens and remained there until the age of thirty seven (c. 347 BC). Shortly after Plato died, Aristotle left Athens and, at the request of Philip II of Macedon, tutored his son Alexander the Great beginning in 343 BC. He established a library in the Lyceum, which helped him to produce many of his hundreds of books on papyrus scrolls.\nThough Aristotle wrote many treatises and dialogues for publication, only around a third of his original output has survived, none of it intended for publication. Aristotle provided a complex synthesis of the various philosophies existing prior to him. His teachings and methods of inquiry have had a significant impact across the world, and remain a subject of contemporary philosophical discussion.\nAristotle's views profoundly shaped medieval scholarship. The influence of his physical science extended from late antiquity and the Early Middle Ages into the Renaissance, and was not replaced systematically until the Enlightenment and theories such as classical mechanics were developed. He influenced Judeo-Islamic philosophies during the Middle Ages, as well as Christian theology, especially the Neoplatonism of the Early Church and the scholastic tradition of the Catholic Church. Aristotle was revered among medieval Muslim scholars as \"The First Teacher\", and among medieval Christians like Thomas Aquinas as simply \"The Philosopher\". He has been described as the first scientist. His works contain the earliest known systematic study of logic, and were studied by medieval scholars such as Peter Abelard and Jean Buridan. His influence on logic continued well into the 19th century. In addition, his ethics, although always influential, has gained renewed interest with the modern advent of virtue ethics."
+        }
+      ],
+      "last_error": "('invalid_request: Missing required parameter: refresh_token', {'error': 'invalid_request', 'error_description': 'Missing required parameter: refresh_token'})"
+    }
+  },
+  "rss_seen": [
+    "https://www.nytimes.com/2023/05/22/books/review/martin-amis.html",
+    "https://www.nytimes.com/2023/05/22/books/james-campbell-nb-by-jc.html",
+    "https://www.nytimes.com/2023/05/22/books/fires-in-the-dark-kay-redfield-jamison.html",
+    "https://www.nytimes.com/2023/05/21/books/review/dorothy-sayers-whose-body-at-100.html"
+  ],
+  "playlists": {}
+}
