@@ -1,6 +1,19 @@
 {
   "version": 2,
   "books": {
+    "first-house-doshi": {
+      "title": "The First House",
+      "author": "Avni Doshi",
+      "norm": "first house",
+      "surname": "doshi",
+      "status": "claimed",
+      "attempts": 0,
+      "concepts": [],
+      "shorts": [],
+      "long": {},
+      "first_seen": 1794791684.594397,
+      "claimed_at": 1794791684.5944004
+    },
     "whose-body-sayers": {
       "title": "Whose Body?",
       "author": "Dorothy L. Sayers",
@@ -95,21 +108,6 @@
       ],
       "last_error": "TTS failed: Here lies why this analysis matters: these literary critique"
     },
-    "nb-by-j-c-campbell": {
-      "title": "NB by J. C.",
-      "author": "James Campbell",
-      "norm": "nb by j c",
-      "surname": "campbell",
-      "status": "skipped",
-      "attempts": 0,
-      "concepts": [],
-      "shorts": [],
-      "long": {},
-      "first_seen": 1794763217.9993296,
-      "claimed_at": 1794763217.999333,
-      "retry_at": 1795972873.770956,
-      "skip_reason": "no short idea available"
-    },
     "stations-kennedy": {
       "title": "Stations",
       "author": "Louise Kennedy",
@@ -141,6 +139,21 @@
         }
       ],
       "last_error": "('invalid_request: Missing required parameter: refresh_token', {'error': 'invalid_request', 'error_description': 'Missing required parameter: refresh_token'})"
+    },
+    "nb-by-j-c-campbell": {
+      "title": "NB by J. C.",
+      "author": "James Campbell",
+      "norm": "nb by j c",
+      "surname": "campbell",
+      "status": "skipped",
+      "attempts": 0,
+      "concepts": [],
+      "shorts": [],
+      "long": {},
+      "first_seen": 1794763217.9993296,
+      "claimed_at": 1794763217.999333,
+      "retry_at": 1795972873.770956,
+      "skip_reason": "no short idea available"
     }
   },
   "rss_seen": [
@@ -154,7 +167,18 @@
     "https://www.nytimes.com/article/best-romance-books.html",
     "https://www.nytimes.com/article/best-books.html",
     "https://www.nytimes.com/2026/11/15/arts/ao3-fan-fiction-site.html",
-    "https://www.nytimes.com/2026/11/15/books/review/stations-louise-kennedy.html"
+    "https://www.nytimes.com/2026/11/15/books/review/stations-louise-kennedy.html",
+    "https://www.nytimes.com/2026/11/15/books/literary-agents-books-substack.html",
+    "https://www.nytimes.com/2026/11/14/movies/whitney-peak-hunger-games-sunrise-reaping.html",
+    "https://www.nytimes.com/2026/11/14/books/moby-dick-book-club-quick-eternity.html",
+    "https://www.nytimes.com/2026/11/14/books/review/asi-wind-magician.html",
+    "https://www.nytimes.com/2026/11/13/books/review/promise-me-america-joe-biden.html",
+    "https://www.nytimes.com/2026/11/13/books/review/nyt-nypl-best-illustrated-childrens-books-award.html",
+    "https://www.nytimes.com/2026/11/13/books/review/new-thriller-books.html",
+    "https://www.nytimes.com/2026/11/13/books/review/xita-rubert-the-key-biscayne-affair.html",
+    "https://www.nytimes.com/2026/11/12/books/review/new-recommended-books.html",
+    "https://www.nytimes.com/2026/11/12/books/review/caitlin-clark-extraordinary.html",
+    "https://www.nytimes.com/2026/11/12/books/review/the-first-house-avni-doshi.html"
   ],
   "playlists": {}
 }
