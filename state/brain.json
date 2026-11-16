@@ -1,6 +1,28 @@
 {
   "version": 2,
   "books": {
+    "whose-body-sayers": {
+      "title": "Whose Body?",
+      "author": "Dorothy L. Sayers",
+      "norm": "whose body",
+      "surname": "sayers",
+      "status": "failed",
+      "attempts": 1,
+      "concepts": [
+        "Aristotle"
+      ],
+      "shorts": [],
+      "long": {},
+      "first_seen": 1794763278.861862,
+      "claimed_at": 1794763278.861866,
+      "ideas": [
+        {
+          "term": "Aristotle",
+          "text": "Aristotle (Ancient Greek: Ἀριστοτέλης, romanized: Aristotélēs; 384–322 BC) was an ancient Greek philosopher and polymath. His writings span the natural sciences, philosophy, linguistics, economics, politics, psychology, and the arts. As the founder of the Peripatetic school of philosophy in the Lyceum in Athens, he began the wider Aristotelian tradition that followed, which set the groundwork for the development of modern science.\nLittle is known about Aristotle's life. He was born in the city of Stagira in Chalkidiki (northern Greece) during the Classical period. His father, Nicomachus, died when Aristotle was a child, and he was brought up by a guardian. At around eighteen years old, he joined Plato's Academy in Athens and remained there until the age of thirty seven (c. 347 BC). Shortly after Plato died, Aristotle left Athens and, at the request of Philip II of Macedon, tutored his son Alexander the Great beginning in 343 BC. He established a library in the Lyceum, which helped him to produce many of his hundreds of books on papyrus scrolls.\nThough Aristotle wrote many treatises and dialogues for publication, only around a third of his original output has survived, none of it intended for publication. Aristotle provided a complex synthesis of the various philosophies existing prior to him. His teachings and methods of inquiry have had a significant impact across the world, and remain a subject of contemporary philosophical discussion.\nAristotle's views profoundly shaped medieval scholarship. The influence of his physical science extended from late antiquity and the Early Middle Ages into the Renaissance, and was not replaced systematically until the Enlightenment and theories such as classical mechanics were developed. He influenced Judeo-Islamic philosophies during the Middle Ages, as well as Christian theology, especially the Neoplatonism of the Early Church and the scholastic tradition of the Catholic Church. Aristotle was revered among medieval Muslim scholars as \"The First Teacher\", and among medieval Christians like Thomas Aquinas as simply \"The Philosopher\". He has been described as the first scientist. His works contain the earliest known systematic study of logic, and were studied by medieval scholars such as Peter Abelard and Jean Buridan. His influence on logic continued well into the 19th century. In addition, his ethics, although always influential, has gained renewed interest with the modern advent of virtue ethics."
+        }
+      ],
+      "last_error": "('invalid_request: Missing required parameter: refresh_token', {'error': 'invalid_request', 'error_description': 'Missing required parameter: refresh_token'})"
+    },
     "nb-by-j-c-campbell": {
       "title": "NB by J. C.",
       "author": "James Campbell",
@@ -15,6 +37,70 @@
       "claimed_at": 1794763217.999333,
       "retry_at": 1795972873.770956,
       "skip_reason": "no short idea available"
+    },
+    "first-house-doshi": {
+      "title": "The First House",
+      "author": "Avni Doshi",
+      "norm": "first house",
+      "surname": "doshi",
+      "status": "claimed",
+      "attempts": 0,
+      "concepts": [],
+      "shorts": [],
+      "long": {},
+      "first_seen": 1794791684.594397,
+      "claimed_at": 1794791684.5944004
+    },
+    "don-t-stop-snowing-bump": {
+      "title": "Don’t Stop Snowing",
+      "author": "Gabriel Bump",
+      "norm": "don t stop snowing",
+      "surname": "bump",
+      "status": "done",
+      "attempts": 0,
+      "concepts": [],
+      "shorts": [
+        {
+          "idea": "Don’t Stop Snowing",
+          "video_id": "spbu44xAta0",
+          "at": 1794795871.96992
+        }
+      ],
+      "long": {},
+      "first_seen": 1794795774.145886,
+      "claimed_at": 1794795774.1458886
+    },
+    "stations-kennedy": {
+      "title": "Stations",
+      "author": "Louise Kennedy",
+      "norm": "stations",
+      "surname": "kennedy",
+      "status": "failed",
+      "attempts": 1,
+      "concepts": [
+        "Irish diaspora",
+        "Working class",
+        "Short story"
+      ],
+      "shorts": [],
+      "long": {},
+      "first_seen": 1794787909.181938,
+      "claimed_at": 1794787909.1819408,
+      "ideas": [
+        {
+          "term": "Irish diaspora",
+          "text": "The Irish diaspora (Irish: Diaspóra na nGael) refers to ethnic Irish people and their descendants who live outside the island of Ireland.\nThe phenomenon of migration from Ireland is recorded since the Early Middle Ages, but it can be quantified only from around 1700. Since then, between 9 and 10 million people born in Ireland have emigrated. That is more than the population of Ireland itself, which at its historical peak was 8.5 million on the eve of the Great Famine. The poorest of them went to Great Britain, especially Liverpool. Those who could afford it went further, including almost 5 million to the United States.\nAfter 1765, emigration from Ireland became a short, relentless and efficiently managed national enterprise. In 1890, 40% of Irish-born people were living abroad. By the 21st century, an estimated 80 million people worldwide claimed some Irish descent, which includes more than 36 million Americans claiming Irish as their primary ethnicity.\nAs recently as the second half of the 19th century, most Irish emigrants spoke Irish as their first language. That had social and cultural consequences for the cultivation of the language abroad, including innovations in journalism. The language continues to be cultivated abroad by a small minority as a literary and social medium. The Irish diaspora are largely assimilated in most countries outside Ireland after World War I. Seán Fleming is the Republic of Ireland's Minister of State for the Diaspora and Overseas Aid, a post which was established in 2014."
+        },
+        {
+          "term": "Working class",
+          "text": "The working class is a group of people in a social hierarchy, typically defined by earning wages or salaries through their ability to work. Members of the working class rely primarily upon earnings from wage labour. Most common definitions of \"working class\" in use in the United States limit its membership to workers who hold blue-collar and pink-collar jobs, or whose income is insufficiently high to place them in the middle class, or both. However, socialists define \"working class\" to include all workers who fall into the category of requiring income from wage labour to subsist; thus, this definition can include almost all of the working population of industrialized economies."
+        },
+        {
+          "term": "Short story",
+          "text": "A short story is a piece of narrative fiction in written prose that can typically be read in a single sitting. It focuses on a self-contained incident or a series of linked incidents, intended to evoke a single effect or mood. The short story is one of the oldest types of literature and has existed as legends, mythic tales, folk tales, fairy tales, tall tales, fables, and anecdotes in various ancient communities around the world. The modern short story developed in the early 19th century.\n\n"
+        }
+      ],
+      "last_error": "('invalid_request: Missing required parameter: refresh_token', {'error': 'invalid_request', 'error_description': 'Missing required parameter: refresh_token'})"
     },
     "dom-casmurro-assis": {
       "title": "Dom Casmurro",
@@ -87,73 +173,6 @@
         }
       ],
       "last_error": "TTS failed: Here lies why this analysis matters: these literary critique"
-    },
-    "whose-body-sayers": {
-      "title": "Whose Body?",
-      "author": "Dorothy L. Sayers",
-      "norm": "whose body",
-      "surname": "sayers",
-      "status": "failed",
-      "attempts": 1,
-      "concepts": [
-        "Aristotle"
-      ],
-      "shorts": [],
-      "long": {},
-      "first_seen": 1794763278.861862,
-      "claimed_at": 1794763278.861866,
-      "ideas": [
-        {
-          "term": "Aristotle",
-          "text": "Aristotle (Ancient Greek: Ἀριστοτέλης, romanized: Aristotélēs; 384–322 BC) was an ancient Greek philosopher and polymath. His writings span the natural sciences, philosophy, linguistics, economics, politics, psychology, and the arts. As the founder of the Peripatetic school of philosophy in the Lyceum in Athens, he began the wider Aristotelian tradition that followed, which set the groundwork for the development of modern science.\nLittle is known about Aristotle's life. He was born in the city of Stagira in Chalkidiki (northern Greece) during the Classical period. His father, Nicomachus, died when Aristotle was a child, and he was brought up by a guardian. At around eighteen years old, he joined Plato's Academy in Athens and remained there until the age of thirty seven (c. 347 BC). Shortly after Plato died, Aristotle left Athens and, at the request of Philip II of Macedon, tutored his son Alexander the Great beginning in 343 BC. He established a library in the Lyceum, which helped him to produce many of his hundreds of books on papyrus scrolls.\nThough Aristotle wrote many treatises and dialogues for publication, only around a third of his original output has survived, none of it intended for publication. Aristotle provided a complex synthesis of the various philosophies existing prior to him. His teachings and methods of inquiry have had a significant impact across the world, and remain a subject of contemporary philosophical discussion.\nAristotle's views profoundly shaped medieval scholarship. The influence of his physical science extended from late antiquity and the Early Middle Ages into the Renaissance, and was not replaced systematically until the Enlightenment and theories such as classical mechanics were developed. He influenced Judeo-Islamic philosophies during the Middle Ages, as well as Christian theology, especially the Neoplatonism of the Early Church and the scholastic tradition of the Catholic Church. Aristotle was revered among medieval Muslim scholars as \"The First Teacher\", and among medieval Christians like Thomas Aquinas as simply \"The Philosopher\". He has been described as the first scientist. His works contain the earliest known systematic study of logic, and were studied by medieval scholars such as Peter Abelard and Jean Buridan. His influence on logic continued well into the 19th century. In addition, his ethics, although always influential, has gained renewed interest with the modern advent of virtue ethics."
-        }
-      ],
-      "last_error": "('invalid_request: Missing required parameter: refresh_token', {'error': 'invalid_request', 'error_description': 'Missing required parameter: refresh_token'})"
-    },
-    "first-house-doshi": {
-      "title": "The First House",
-      "author": "Avni Doshi",
-      "norm": "first house",
-      "surname": "doshi",
-      "status": "claimed",
-      "attempts": 0,
-      "concepts": [],
-      "shorts": [],
-      "long": {},
-      "first_seen": 1794791684.594397,
-      "claimed_at": 1794791684.5944004
-    },
-    "stations-kennedy": {
-      "title": "Stations",
-      "author": "Louise Kennedy",
-      "norm": "stations",
-      "surname": "kennedy",
-      "status": "failed",
-      "attempts": 1,
-      "concepts": [
-        "Irish diaspora",
-        "Working class",
-        "Short story"
-      ],
-      "shorts": [],
-      "long": {},
-      "first_seen": 1794787909.181938,
-      "claimed_at": 1794787909.1819408,
-      "ideas": [
-        {
-          "term": "Irish diaspora",
-          "text": "The Irish diaspora (Irish: Diaspóra na nGael) refers to ethnic Irish people and their descendants who live outside the island of Ireland.\nThe phenomenon of migration from Ireland is recorded since the Early Middle Ages, but it can be quantified only from around 1700. Since then, between 9 and 10 million people born in Ireland have emigrated. That is more than the population of Ireland itself, which at its historical peak was 8.5 million on the eve of the Great Famine. The poorest of them went to Great Britain, especially Liverpool. Those who could afford it went further, including almost 5 million to the United States.\nAfter 1765, emigration from Ireland became a short, relentless and efficiently managed national enterprise. In 1890, 40% of Irish-born people were living abroad. By the 21st century, an estimated 80 million people worldwide claimed some Irish descent, which includes more than 36 million Americans claiming Irish as their primary ethnicity.\nAs recently as the second half of the 19th century, most Irish emigrants spoke Irish as their first language. That had social and cultural consequences for the cultivation of the language abroad, including innovations in journalism. The language continues to be cultivated abroad by a small minority as a literary and social medium. The Irish diaspora are largely assimilated in most countries outside Ireland after World War I. Seán Fleming is the Republic of Ireland's Minister of State for the Diaspora and Overseas Aid, a post which was established in 2014."
-        },
-        {
-          "term": "Working class",
-          "text": "The working class is a group of people in a social hierarchy, typically defined by earning wages or salaries through their ability to work. Members of the working class rely primarily upon earnings from wage labour. Most common definitions of \"working class\" in use in the United States limit its membership to workers who hold blue-collar and pink-collar jobs, or whose income is insufficiently high to place them in the middle class, or both. However, socialists define \"working class\" to include all workers who fall into the category of requiring income from wage labour to subsist; thus, this definition can include almost all of the working population of industrialized economies."
-        },
-        {
-          "term": "Short story",
-          "text": "A short story is a piece of narrative fiction in written prose that can typically be read in a single sitting. It focuses on a self-contained incident or a series of linked incidents, intended to evoke a single effect or mood. The short story is one of the oldest types of literature and has existed as legends, mythic tales, folk tales, fairy tales, tall tales, fables, and anecdotes in various ancient communities around the world. The modern short story developed in the early 19th century.\n\n"
-        }
-      ],
-      "last_error": "('invalid_request: Missing required parameter: refresh_token', {'error': 'invalid_request', 'error_description': 'Missing required parameter: refresh_token'})"
     }
   },
   "rss_seen": [
@@ -178,7 +197,15 @@
     "https://www.nytimes.com/2026/11/13/books/review/xita-rubert-the-key-biscayne-affair.html",
     "https://www.nytimes.com/2026/11/12/books/review/new-recommended-books.html",
     "https://www.nytimes.com/2026/11/12/books/review/caitlin-clark-extraordinary.html",
-    "https://www.nytimes.com/2026/11/12/books/review/the-first-house-avni-doshi.html"
+    "https://www.nytimes.com/2026/11/12/books/review/the-first-house-avni-doshi.html",
+    "https://www.nytimes.com/2026/11/11/arts/michel-houellebecq-investigated-anti-muslim-remarks.html",
+    "https://www.nytimes.com/2026/11/11/books/review/the-absent-woman-eve-sneider.html",
+    "https://www.nytimes.com/2026/11/11/books/review/new-poetry-fady-joudah-exhibit-g-maya-popa.html",
+    "https://www.nytimes.com/2026/11/10/world/europe/who-is-david-walliams-sexual-misconduct-allegations-uk.html",
+    "https://www.nytimes.com/2026/11/10/us/politics/presidential-library-artifacts-photo-book.html",
+    "https://www.nytimes.com/2026/11/10/books/review/gabriel-bump-dont-stop-snowing.html"
   ],
-  "playlists": {}
+  "playlists": {
+    "Psychology & Mind — Book Shorts": "PLeHfGv476DYc"
+  }
 }
