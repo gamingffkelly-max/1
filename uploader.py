@@ -17,6 +17,20 @@ def service():
     return build("youtube", "v3", credentials=c, cache_discovery=False)
 
 
+def check():
+    """Run BEFORE any hours of work: are the three YouTube secrets present, and does the refresh token still work?"""
+    missing = [n for n in ("YT_CLIENT_ID", "YT_CLIENT_SECRET", "YT_REFRESH_TOKEN") if not config.env(n)]
+    if missing:
+        raise SystemExit("STOPPED EARLY - missing GitHub secret(s): " + ", ".join(missing) + ". Add them in this repository under "
+                         "Settings > Secrets and variables > Actions > Repository secrets (exact names, no quotes, no spaces).")
+    try:
+        service()
+    except Exception as e:
+        raise SystemExit("STOPPED EARLY - YouTube login failed: " + str(e)[:300] + " | Create a new refresh token with the same "
+                         "client id and client secret, and make sure the Google OAuth app is set to 'In production'.")
+    print("[youtube] login OK", flush=True)
+
+
 def next_slot(mode, lead_min=20):
     hours = config.SHORT_SLOTS if mode == "short" else config.LONG_SLOTS
     tz = dt.timedelta(hours=config.SLOT_TZ_OFFSET)
