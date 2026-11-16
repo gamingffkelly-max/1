@@ -58,6 +58,8 @@ def main():
     ap.add_argument("--book", help='"Title|Author" to force a specific book')
     a = ap.parse_args()
     cfg = config.LONG if a.mode == "long" else config.SHORT
+    if not a.dry_run:
+        uploader.check()          # stop in seconds, not after hours, if the YouTube login cannot work
 
     br = brain.Brain()
     chosen, tries = None, 0
