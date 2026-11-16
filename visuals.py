@@ -120,21 +120,26 @@ def commons_candidates(m, query, portrait):
 
 
 # ------------------------------------------------------------------ 3. CLIP scoring
+_load_lock = threading.Lock()
+
+
 def load_clip():
-    if _clip["model"] is not None:
-        return True
-    if _clip["failed"]:
-        return False
-    try:
-        from transformers import CLIPModel, CLIPProcessor
-        _clip["model"] = CLIPModel.from_pretrained(config.CLIP_MODEL).eval()
-        _clip["proc"] = CLIPProcessor.from_pretrained(config.CLIP_MODEL)
-        print("[clip] picture-matching model loaded", flush=True)
-        return True
-    except Exception as e:
-        _clip["failed"] = True
-        print("[clip] not available, falling back to tag matching:", str(e)[:100], flush=True)
-        return False
+    """Loaded once. The lock matters: importing transformers from several threads at the same time fails randomly."""
+    with _load_lock:
+        if _clip["model"] is not None:
+            return True
+        if _clip["failed"]:
+            return False
+        try:
+            from transformers import CLIPModel, CLIPProcessor
+            _clip["model"] = CLIPModel.from_pretrained(config.CLIP_MODEL).eval()
+            _clip["proc"] = CLIPProcessor.from_pretrained(config.CLIP_MODEL)
+            print("[clip] picture-matching model loaded", flush=True)
+            return True
+        except Exception as e:
+            _clip["failed"] = True
+            print("[clip] not available, falling back to tag matching:", str(e)[:100], flush=True)
+            return False
 
 
 def clip_scores(caption, images):
@@ -201,6 +206,8 @@ def best_match(ctx, caption, queries):
 def prepare_media(scenes, ctx, log=print):
     todo = [s for s in scenes if s["layout"] in ("hero", "broll") and not s.get("asset")]
     stat = {"matched": 0, "typography": 0}
+    if todo:
+        load_clip()          # once, in the main thread, before the worker threads start
 
     def work(sc):
         caption = sc.get("caption") or sc.get("query") or ""
