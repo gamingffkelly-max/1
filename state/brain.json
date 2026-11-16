@@ -21,37 +21,117 @@
       "claimed_at": 1794795774.1458886,
       "skip_reason": "not enough material for a long video"
     },
-    "stations-kennedy": {
-      "title": "Stations",
-      "author": "Louise Kennedy",
-      "norm": "stations",
-      "surname": "kennedy",
+    "whose-body-sayers": {
+      "title": "Whose Body?",
+      "author": "Dorothy L. Sayers",
+      "norm": "whose body",
+      "surname": "sayers",
       "status": "failed",
       "attempts": 1,
       "concepts": [
-        "Irish diaspora",
-        "Working class",
-        "Short story"
+        "Aristotle"
       ],
       "shorts": [],
       "long": {},
-      "first_seen": 1794787909.181938,
-      "claimed_at": 1794787909.1819408,
+      "first_seen": 1794763278.861862,
+      "claimed_at": 1794763278.861866,
       "ideas": [
         {
-          "term": "Irish diaspora",
-          "text": "The Irish diaspora (Irish: Diaspóra na nGael) refers to ethnic Irish people and their descendants who live outside the island of Ireland.\nThe phenomenon of migration from Ireland is recorded since the Early Middle Ages, but it can be quantified only from around 1700. Since then, between 9 and 10 million people born in Ireland have emigrated. That is more than the population of Ireland itself, which at its historical peak was 8.5 million on the eve of the Great Famine. The poorest of them went to Great Britain, especially Liverpool. Those who could afford it went further, including almost 5 million to the United States.\nAfter 1765, emigration from Ireland became a short, relentless and efficiently managed national enterprise. In 1890, 40% of Irish-born people were living abroad. By the 21st century, an estimated 80 million people worldwide claimed some Irish descent, which includes more than 36 million Americans claiming Irish as their primary ethnicity.\nAs recently as the second half of the 19th century, most Irish emigrants spoke Irish as their first language. That had social and cultural consequences for the cultivation of the language abroad, including innovations in journalism. The language continues to be cultivated abroad by a small minority as a literary and social medium. The Irish diaspora are largely assimilated in most countries outside Ireland after World War I. Seán Fleming is the Republic of Ireland's Minister of State for the Diaspora and Overseas Aid, a post which was established in 2014."
-        },
-        {
-          "term": "Working class",
-          "text": "The working class is a group of people in a social hierarchy, typically defined by earning wages or salaries through their ability to work. Members of the working class rely primarily upon earnings from wage labour. Most common definitions of \"working class\" in use in the United States limit its membership to workers who hold blue-collar and pink-collar jobs, or whose income is insufficiently high to place them in the middle class, or both. However, socialists define \"working class\" to include all workers who fall into the category of requiring income from wage labour to subsist; thus, this definition can include almost all of the working population of industrialized economies."
-        },
-        {
-          "term": "Short story",
-          "text": "A short story is a piece of narrative fiction in written prose that can typically be read in a single sitting. It focuses on a self-contained incident or a series of linked incidents, intended to evoke a single effect or mood. The short story is one of the oldest types of literature and has existed as legends, mythic tales, folk tales, fairy tales, tall tales, fables, and anecdotes in various ancient communities around the world. The modern short story developed in the early 19th century.\n\n"
+          "term": "Aristotle",
+          "text": "Aristotle (Ancient Greek: Ἀριστοτέλης, romanized: Aristotélēs; 384–322 BC) was an ancient Greek philosopher and polymath. His writings span the natural sciences, philosophy, linguistics, economics, politics, psychology, and the arts. As the founder of the Peripatetic school of philosophy in the Lyceum in Athens, he began the wider Aristotelian tradition that followed, which set the groundwork for the development of modern science.\nLittle is known about Aristotle's life. He was born in the city of Stagira in Chalkidiki (northern Greece) during the Classical period. His father, Nicomachus, died when Aristotle was a child, and he was brought up by a guardian. At around eighteen years old, he joined Plato's Academy in Athens and remained there until the age of thirty seven (c. 347 BC). Shortly after Plato died, Aristotle left Athens and, at the request of Philip II of Macedon, tutored his son Alexander the Great beginning in 343 BC. He established a library in the Lyceum, which helped him to produce many of his hundreds of books on papyrus scrolls.\nThough Aristotle wrote many treatises and dialogues for publication, only around a third of his original output has survived, none of it intended for publication. Aristotle provided a complex synthesis of the various philosophies existing prior to him. His teachings and methods of inquiry have had a significant impact across the world, and remain a subject of contemporary philosophical discussion.\nAristotle's views profoundly shaped medieval scholarship. The influence of his physical science extended from late antiquity and the Early Middle Ages into the Renaissance, and was not replaced systematically until the Enlightenment and theories such as classical mechanics were developed. He influenced Judeo-Islamic philosophies during the Middle Ages, as well as Christian theology, especially the Neoplatonism of the Early Church and the scholastic tradition of the Catholic Church. Aristotle was revered among medieval Muslim scholars as \"The First Teacher\", and among medieval Christians like Thomas Aquinas as simply \"The Philosopher\". He has been described as the first scientist. His works contain the earliest known systematic study of logic, and were studied by medieval scholars such as Peter Abelard and Jean Buridan. His influence on logic continued well into the 19th century. In addition, his ethics, although always influential, has gained renewed interest with the modern advent of virtue ethics."
         }
       ],
       "last_error": "('invalid_request: Missing required parameter: refresh_token', {'error': 'invalid_request', 'error_description': 'Missing required parameter: refresh_token'})"
+    },
+    "this-cursed-beautiful-land-gershkovich": {
+      "title": "This Cursed Beautiful Land",
+      "author": "Evan Gershkovich",
+      "norm": "this cursed beautiful land",
+      "surname": "gershkovich",
+      "status": "failed",
+      "attempts": 1,
+      "concepts": [
+        "Introduction to Evan Gershkovich",
+        "Arrest in Moscow",
+        "Espionage charges levied",
+        "Life behind bars begins",
+        "Daily routines in confinement",
+        "Coping with isolation monotony",
+        "Cultural identity amidst conflict",
+        "Prisoner swap negotiations start",
+        "Western condemnation intensifies",
+        "Legal battles continue",
+        "Innocence plea through literature",
+        "Struggle against prosecution kayfabe"
+      ],
+      "shorts": [],
+      "long": {},
+      "first_seen": 1794840254.1059518,
+      "claimed_at": 1794840254.105955,
+      "ideas": [
+        {
+          "term": "Introduction to Evan Gershkovich",
+          "text": "Evan Gershkovich, an American journalist of Russian descent with a profound understanding of Russia's societal intricacies gleaned from his extensive residence in the country since childhood, found himself ensnared within its autocratic grasp. His arrest on spurious espionage charges became not just personal adversity but also highlighted systemic issues plaguing journalistic integrity and freedom of expression under an oppressive regime. The court's refusal to consider Evan’s bail request, despite significant legal resources from his lawyers, underscored the severity with which Russia treated dissenting voices within its borders—an autocracy showing little tolerance for opposition or independent reporting that challenges state narratives. Gershkovich's experience of Russian prisons was a stark illustration of this suppression; he shared his firsthand accounts from the depths of Lefortovo prison, where harsh realities and severe conditions became part of an unfolding tale for Western audiences to witness through The Moscow Times. This publication’s story painted vivid images not only as journalistic endeavors but also served a dual purpose: it was both personal testimony against unjust imprisonment while revealing the grim reality inside Russia's walls—a narrative mechanism that brought international attention and scrutiny to Russian political practices, especially post-Ukraine conflict. The stakes of Gershkovich’s predicament were high; it was not merely a case about one man but symbolized the plight faced by many journalists under autocratic rule—a stark contradiction within its citizens who often oscillate between pride in"
+        },
+        {
+          "term": "Arrest in Moscow",
+          "text": "Evan Gershkovich's arrest sends ripples through the international community, exposing vulnerabilities in press freedom and straining diplomatic relations between Russia and Western nations. His detainment under espionage charges unveils a complex interplay of political maneuverings within an autocracy where dissent is often met with severe reprisal. This incident not only underscores the precarious position journalists hold in conflict zones but also highlights systemic flaws, including prosecutorial practices that may prioritize show over substance—a notion encapsulated by Beria's principle of revealing a person through their supposed crime rather than actual evidence. The Wall Street Journal stands firm against the allegations brought forth in Gershkovich’s case, underscoring his innocence and highlighting potential miscarriages within Russia's justice system—a sentiment echoed by entities like NATO, EU representatives including U.S Ambassador Lynne M. Tracy to Russia, White House Press Secretary Karine Jean-Pierre, and even the United Nations panel which deemed his detention arbitrary. This collective defense underscores a broader stance against unjustified suppression of journalistic inquiry—a fundamental pillar in democratic societies since Cold War times when information flow was more regulated across ideological divides, often symbolized by the Iron Curtain that once segregated East from West. Gershkovich's narrative extends into his time spent at Lefortovo prison—a place marked for its grim environment and societal normativity within Russian penitentiaries known as glubinka, which could potentially shape or distort a detainee’s perspective under duress. His firsthand account"
+        },
+        {
+          "term": "Espionage charges levied",
+          "text": "Evan Gershkovich's harrowing experience, as a journalist wrongfully accused of espionage in Russia during Putin’s regime, highlighted the fragile state of press freedom under autocracy. The Federal Security Service (FSB), tasked with intelligence and counterintelligence within Russian borders but also known for its heavy hand against foreign correspondents like Gershkovich himself, became a symbol of this suppression when it levied serious espionage charges without substantial evidence. His ordeal began innocently enough while he was investigating the Wagner Group's presence in Russia—a mercenary military organization with significant political implications that had been making headlines worldwide due to its involvement abroad and connections within Russian elite circles. Gershkovich, a seasoned journalist for The Moscow Times before his arrest, was known not just as an investigative reporter but also recognized by the international community during tense times of diplomatic conflict with Ukraine—an incident that complicated matters further given its heightened political climate and strained relations between Russia and Western nations. The mechanism behind such charges often involves prosecutorial kayfabe, a practice where courts present an image contrary to reality; in Gershkovich's case, it manifested as unfounded allegations of espionage against someone who was merely gathering information for public consumption rather than engaging with foreign entities. The FSB’s actions were not just about silencing dissent but served a broader purpose: to control the narrative and suppress any form that could potentially undermine autocratic authority,"
+        },
+        {
+          "term": "Life behind bars begins",
+          "text": "Evan Gershkovich's journey from being a recognized journalist to wrongfully imprisoned sheds light on the complexities of Russian politics and its impact on press freedom. His arrest by FSB agents in March 2023, under espionage charges that seem baseless against his career as an investigative reporter for The Moscow Times—a publication known among peers like Lynne M. Tracy who had witnessed Gershkovich's dedication to uncovering truth since childhood in Russia – stirred international concern and scrutiny over the autocratic nature of Russian governance, echoing a history where figures such as Dmitri Peskov have navigated tightrope politics. Gershkovich’s narrative is not merely personal; it's an exposé on how political climates influence journalistic integrity and liberty (Stakes). By documenting his experiences in prisons like Lefortovo, he unravelled the layers of punitive hierarchies where communication etiquette among cells demanded non-physical contact until explicit consent was given—a stark contrast to Western norms. Such mechanisms underline a broader systemic control that Gershkovich observed and challenged through his reports, which gained attention from figures like Antony Blinken who publicly voiced concerns over the wrongful detention of journalists such as himself (Mechanism). His imprisonment became not only an ordeal but a platform for reflection on Russia's deep-rooted culture and governance, where Beria’s principle often dictated that one must prove innocence through exhaustive scrutiny. Yet Gershkovich saw potential in this adversity to foster growth—a notion supported by his"
+        },
+        {
+          "term": "Daily routines in confinement",
+          "text": "Evan Gershkovich's ordeal began with a seemingly innocuous phone call, but it rapidly escalated into an espionage charge that would thrust him deep within Russia’s judicial labyrinth. His arrest by the Federal Security Service (FSB), known for its rigorous counterintelligence operations against foreigners perceived as threats to state security, marked a stark turn from his life of investigative journalism and cultural exploration in Moscow since 2016. The incident occurred post an encounter at what appeared routine; Gershkovich's phone was deliberately turned off by the FSB counterintelligence following their meeting with Dmitri Peskov, leading to a chain reaction that culminated on March 29th of his arrest year in question. The stakes here are high as this narrative delves into an intricate web where politics and personal freedoms intersect under the shadowy guise of national security concerns—a theme resonant with autocratic regimes worldwide, particularly during periods like Putin's war against Ukraine in 2023. This case highlights not just a single individual’s plight but also broader issues concerning press freedom and human rights within Russia. Gershkovich himself became emblematic of the tension between international journalism standards and domestic authoritarian practices, his wrongful imprisonment serving as an acute illustration for observers globally concerned with democratic principles in shrinking spaces. The mechanism behind such events often involves a complex interplay: law enforcement agencies' vigilance over national security interests coupled with the autocracy’s control of information"
+        },
+        {
+          "term": "Coping with isolation monotony",
+          "text": "In \"This Cursed Beautiful Land,\" Evan Gershkovich, an American journalist of Russian descent with a history in the press corps and investigative journalism honored by The Moscow Times among others, delves into his unexpected journey as he finds himself wrongfully ensnared within Russia's formidable prison system. His story unfolds against a backdrop where autocracy reigns supreme over freedom of expression—a stark contrast to the ideals cherished in democratic societies across Western Europe and America, particularly after the Cold War era when Eastern Bloc countries sought liberation from Soviet influence symbolized by the Iron Curtain. Gershkovich's wrongful imprisonment stems not merely as a personal travesty but also serves to illuminate broader geopolitical tensions between nations like Russia and those with Western liberal ideologies, exemplifying how individuals can become pawns in international disputes. His arrest is the culmination of an elaborate setup: contacts promised him insights into military-industrial complexities under Putin's regime only to entangle Gershkovich further within a web of espionage charges that seemingly target his journalistic pursuits, raising questions about press freedom and international diplomacy. The narrative mechanism unfolds as Evan meticulously documents the reality inside Russian prisons while incarcerated under baseless accusations; he shares these experiences with an objective lens shaped by years of living within Russia's complex social fabric, offering a unique perspective that transcends mere personal grievance. Herein lies why this account holds significance: it provides readers"
+        },
+        {
+          "term": "Cultural identity amidst conflict",
+          "text": "Evan Gershkovich's story unfolds as a compelling narrative of cultural identity amidst stark political contrast. As an American journalist with deep roots in Russian society, his life straddles the dichotomy between Western optimism and Soviet realities—a personal odyssey that offers profound insights into journalistic integrity under geopolitical strain. Throughout 'This Cursed Beautiful Land,' Gershkovich conveys how independent reporting becomes a beacon of truth in an era where information flow is often stifled by the Iron Curtain's heavy veil. His experiences, from childhood to his adult life as The Moscow Times correspondent and later Wall Street Journal reporter, showcase journalism’s vital role amidst global disinformation challenges; a testament underscored further through adversity rather than triumphant anecdotes alone. The stakes of Gershkovich's narrative are high—it speaks to the very essence of freedom in reporting and understanding our world’s complexities, particularly within Russia where such freedoms clash with authoritarianism. The mechanism through which he communicates these tensions involves an intimate portrayal; his imprisonment serves as a stark testament—a consequence not only for himself but also symbolically highlighting the risks journalists face when they dare to uncover and report on inconvenient truths about authoritarian regimes. His sixteen months of confinement provide indisputable evidence, reflective of an era where reporters are often entangled in political webs woven out of suspicion rather than factual pursuit. Gershkovich’s life illustrates the complications faced by journalists operating under such"
+        },
+        {
+          "term": "Prisoner swap negotiations start",
+          "text": "Evan Gershkovich's ordeal began with a sudden arrest that shocked the international journalistic community. Accused of espionage, his personal liberty was stripped away overnight as he faced charges seemingly rooted in political motivations rather than factual evidence. The journalist’s background and professional work painted him not just as an observer but also as someone capable of influencing perception through storytelling—a perspective that could unsettle those holding power within Russia's autocratic system, where the line between truthful reporting and dissent often blurs under surveillance. The arrest itself was a stark example of prosecution kayfabe; despite Evan’s lack of evidence-based accusations against him, his storytelling posed an implicit threat to those in control who might have preferred the status quo and suppressive narratives within their borders. His predicament underscores how press freedom is a cornerstone for democratic societies but remains vulnerable under autocracy's watchful eye where dissenting voices face severe reprisals, sometimes even imprisonment on false charges like espionage to quell critical journalism and maintain an iron grip over public perception. As the narrative unfolds from Evan’s perspective within Lefortovo prison walls—a place notorious for its grim reality contrasting with freedom's ideals it stands against—we delve into his daily life, marked by uncertainty but also a resolve to document and share truthful accounts of Russian society. His time behind bars became more than just confinement; it was an opportunity to reflect on"
+        },
+        {
+          "term": "Western condemnation intensifies",
+          "text": "Evan Gershkovich's memoir, 'This Cursed Beautiful Land,' serves as a poignant narrative that brings to light the intricacies of Russian autocracy through his harrowing experience. His wrongful imprisonment on espionage charges illuminates not only personal adversity but also broader themes affecting press freedom and international diplomacy (stakes). The mechanism by which Gershkovich's case unfolded involved escalating court proceedings culminating in a guilty verdict, with the judge disregarding material evidence. This process mirrors historical patterns observed during authoritarian regimes where legal outcomes are often preordained (mechanism). The gravity of Gershkovich's plight is underscored by his untarnished reputation as an investigative journalist, having worked for esteemed publications like the Moscow Times and being a Pulitzer Prize finalist. His arrest disrupted not only his life but also highlighted systemic issues within Russia’s justice system (evidence). Gershkovich's experience reflects broader societal undercurrents symbolized by Krylov’s fables, where truth and integrity often find themselves confined to the darker corners of oppression. His encounters with Russian culture—glubinka in its resilience yet vulnerability (illustration) reveal a complex backdrop against which his wrongful imprisonment occurs. Despite these revelations, critical gaps remain unaddressed: it is unclear who orchestrated Gershkovich’s arrest and whether personal vendettas played into the decision-making process—leaving readers questioning motivational forces behind such actions (complication). The book's conclusion emphasizes understanding diverse perspectives as essential to grasp Russia's societal intricacies fully. Gershkovich, throughout his ordeal and even posthumously"
+        },
+        {
+          "term": "Legal battles continue",
+          "text": "In the labyrinth of Russian legal proceedings, Evan Gershkovich's case unfolded like a tragic fable from Krylov’s collection. The journalist found himself ensnared by accusations that lacked any substantial evidence—a scenario reminiscent of prosecution kayfabe where facades were presented with an air of solemnity, yet stripped bare in reality's harsh light. Despite a plea for bail and the backing of his lawyers through considerable financial means from respectable entities like Lynne M. Tracy—the U.S ambassador to Russia at that time—his freedom was not granted by Judge Andrei Mineyev, signaling an impasse where accountability often succumbs beneath hidden agendas within the judicial system's machinery. Gershkovich’s professional life as a journalist for The Wall Street Journal took an abrupt turn when his reporting on political matters drew suspicion and led to allegations of espionage, painting him not with ink but under ominous shadows cast by autocracy's reach into journalistic practices. His predicament was emblematic of a broader narrative where the pen is held captive rather than free—a sentiment echoed through his sixteen months behind bars within Krylov’s fables, Russia's grim and unforgiving reality encapsulated in its glubinka. The judge presiding over Gershkovich's case seemed to adhere closely to Beria's principle—that a man must first be shown before his alleged crime can stand scrutiny, yet this logic faltered without material proof presented by the prosecution in Evan’s defense. The absence of concrete evidence"
+        },
+        {
+          "term": "Innocence plea through literature",
+          "text": "Evan Gershkovich's ordeal is not merely a tale of personal tribulation but also an insightful commentary on the fragile state of press freedom in autocratic regimes. His narrative, articulated with poetic finesse interwoven into prose, paints vividly Russia under Vladimir Putin's governance—a country where liberty and truth contend against a backdrop of stringent control measures reminiscent of the Iron Curtain era. The notion that journalism can be both an instrument for enlightenment and a target in political machinations is central to understanding his plight, as he found himself ensnared by espionage charges purely based on associations rather than concrete evidence—a scenario echoing historical disputes over press freedom where inconsistency led to prolonged legal battles without resolution. The stakes here are profoundly significant; it underscores the vitality of truthful reporting, especially in societies threatened by authoritarian regimes that manipulate information flow and suppress dissenters under their iron grip reminiscent of past eras where censorship was rife. The consequences were immediate for Gershkovich—an American journalist wrongfully imprisoned on bogus espionage charges during a time when Putin's war raged, reflecting the broader struggle faced by journalists under autocratic rule who seek to navigate and report amidst political strife without succumbing to retaliation or censorship. The mechanism of his release was through prisoner exchange—a diplomatically sensitive process that involved negotiations at international levels, with figures like President Joe Biden considering a swap during Helsinki"
+        },
+        {
+          "term": "Struggle against prosecution kayfabe",
+          "text": "Evan Gershkovich's narrative transcends the boundaries of a typical memoir by delving into his profound connection with Russia, which he experienced not only as its cultural heritage but also through intimate personal encounters. His account is far from mere recounting; it serves as an eye-opening exploration that challenges readers to question their understanding of autocracy and the resilience inherent within Russian society during tumultuous times. Gershkovich's ordeal began when he was wrongfully imprisoned on espionage charges, a situation mirrored by other foreign journalists in Russia who faced similar accusations for political reasons rather than actual crimes against national security. The concept of prosecution kayfabe is central to Gershkovich's storyline—it underscores the facade that legal proceedings sometimes take on, where truth becomes obscured by a veneer meant only to serve political ends rather than justice itself. This phenomenon finds its roots in Russia’s complex history of autocracy and post-Soviet judicial challenges but is not unique; it has parallels worldwide as nations grapple with balancing state security against individual freedoms. Gershkovich's arrest, though fictional for this narration purpose, stands in reality to showcase the risks journalists take when they peel back layers of political propaganda and expose hidden truths about contentious issues like arms development following Ukraine’s invasion by Russia. The Wall Street Journal reported on such sensitive matters but faced legal pushback that led them into a conviction scenario, exemplifying how"
+        }
+      ],
+      "last_error": "TTS failed: Tracy, the U.S. ambassador to Russia, and even calls for a p"
+    },
+    "first-house-doshi": {
+      "title": "The First House",
+      "author": "Avni Doshi",
+      "norm": "first house",
+      "surname": "doshi",
+      "status": "claimed",
+      "attempts": 1,
+      "concepts": [],
+      "shorts": [],
+      "long": {},
+      "first_seen": 1794791684.594397,
+      "claimed_at": 1794791684.5944004
     },
     "dom-casmurro-assis": {
       "title": "Dom Casmurro",
@@ -124,56 +204,6 @@
         }
       ],
       "last_error": "TTS failed: Here lies why this analysis matters: these literary critique"
-    },
-    "nb-by-j-c-campbell": {
-      "title": "NB by J. C.",
-      "author": "James Campbell",
-      "norm": "nb by j c",
-      "surname": "campbell",
-      "status": "skipped",
-      "attempts": 0,
-      "concepts": [],
-      "shorts": [],
-      "long": {},
-      "first_seen": 1794763217.9993296,
-      "claimed_at": 1794763217.999333,
-      "retry_at": 1795972873.770956,
-      "skip_reason": "no short idea available"
-    },
-    "first-house-doshi": {
-      "title": "The First House",
-      "author": "Avni Doshi",
-      "norm": "first house",
-      "surname": "doshi",
-      "status": "claimed",
-      "attempts": 0,
-      "concepts": [],
-      "shorts": [],
-      "long": {},
-      "first_seen": 1794791684.594397,
-      "claimed_at": 1794791684.5944004
-    },
-    "whose-body-sayers": {
-      "title": "Whose Body?",
-      "author": "Dorothy L. Sayers",
-      "norm": "whose body",
-      "surname": "sayers",
-      "status": "failed",
-      "attempts": 1,
-      "concepts": [
-        "Aristotle"
-      ],
-      "shorts": [],
-      "long": {},
-      "first_seen": 1794763278.861862,
-      "claimed_at": 1794763278.861866,
-      "ideas": [
-        {
-          "term": "Aristotle",
-          "text": "Aristotle (Ancient Greek: Ἀριστοτέλης, romanized: Aristotélēs; 384–322 BC) was an ancient Greek philosopher and polymath. His writings span the natural sciences, philosophy, linguistics, economics, politics, psychology, and the arts. As the founder of the Peripatetic school of philosophy in the Lyceum in Athens, he began the wider Aristotelian tradition that followed, which set the groundwork for the development of modern science.\nLittle is known about Aristotle's life. He was born in the city of Stagira in Chalkidiki (northern Greece) during the Classical period. His father, Nicomachus, died when Aristotle was a child, and he was brought up by a guardian. At around eighteen years old, he joined Plato's Academy in Athens and remained there until the age of thirty seven (c. 347 BC). Shortly after Plato died, Aristotle left Athens and, at the request of Philip II of Macedon, tutored his son Alexander the Great beginning in 343 BC. He established a library in the Lyceum, which helped him to produce many of his hundreds of books on papyrus scrolls.\nThough Aristotle wrote many treatises and dialogues for publication, only around a third of his original output has survived, none of it intended for publication. Aristotle provided a complex synthesis of the various philosophies existing prior to him. His teachings and methods of inquiry have had a significant impact across the world, and remain a subject of contemporary philosophical discussion.\nAristotle's views profoundly shaped medieval scholarship. The influence of his physical science extended from late antiquity and the Early Middle Ages into the Renaissance, and was not replaced systematically until the Enlightenment and theories such as classical mechanics were developed. He influenced Judeo-Islamic philosophies during the Middle Ages, as well as Christian theology, especially the Neoplatonism of the Early Church and the scholastic tradition of the Catholic Church. Aristotle was revered among medieval Muslim scholars as \"The First Teacher\", and among medieval Christians like Thomas Aquinas as simply \"The Philosopher\". He has been described as the first scientist. His works contain the earliest known systematic study of logic, and were studied by medieval scholars such as Peter Abelard and Jean Buridan. His influence on logic continued well into the 19th century. In addition, his ethics, although always influential, has gained renewed interest with the modern advent of virtue ethics."
-        }
-      ],
-      "last_error": "('invalid_request: Missing required parameter: refresh_token', {'error': 'invalid_request', 'error_description': 'Missing required parameter: refresh_token'})"
     },
     "rome-s-age-of-revolution-whitmarsh": {
       "title": "Rome's Age of Revolution",
@@ -256,6 +286,53 @@
         }
       ],
       "category": "Spirituality"
+    },
+    "nb-by-j-c-campbell": {
+      "title": "NB by J. C.",
+      "author": "James Campbell",
+      "norm": "nb by j c",
+      "surname": "campbell",
+      "status": "skipped",
+      "attempts": 0,
+      "concepts": [],
+      "shorts": [],
+      "long": {},
+      "first_seen": 1794763217.9993296,
+      "claimed_at": 1794763217.999333,
+      "retry_at": 1795972873.770956,
+      "skip_reason": "no short idea available"
+    },
+    "stations-kennedy": {
+      "title": "Stations",
+      "author": "Louise Kennedy",
+      "norm": "stations",
+      "surname": "kennedy",
+      "status": "failed",
+      "attempts": 1,
+      "concepts": [
+        "Irish diaspora",
+        "Working class",
+        "Short story"
+      ],
+      "shorts": [],
+      "long": {},
+      "first_seen": 1794787909.181938,
+      "claimed_at": 1794787909.1819408,
+      "ideas": [
+        {
+          "term": "Irish diaspora",
+          "text": "The Irish diaspora (Irish: Diaspóra na nGael) refers to ethnic Irish people and their descendants who live outside the island of Ireland.\nThe phenomenon of migration from Ireland is recorded since the Early Middle Ages, but it can be quantified only from around 1700. Since then, between 9 and 10 million people born in Ireland have emigrated. That is more than the population of Ireland itself, which at its historical peak was 8.5 million on the eve of the Great Famine. The poorest of them went to Great Britain, especially Liverpool. Those who could afford it went further, including almost 5 million to the United States.\nAfter 1765, emigration from Ireland became a short, relentless and efficiently managed national enterprise. In 1890, 40% of Irish-born people were living abroad. By the 21st century, an estimated 80 million people worldwide claimed some Irish descent, which includes more than 36 million Americans claiming Irish as their primary ethnicity.\nAs recently as the second half of the 19th century, most Irish emigrants spoke Irish as their first language. That had social and cultural consequences for the cultivation of the language abroad, including innovations in journalism. The language continues to be cultivated abroad by a small minority as a literary and social medium. The Irish diaspora are largely assimilated in most countries outside Ireland after World War I. Seán Fleming is the Republic of Ireland's Minister of State for the Diaspora and Overseas Aid, a post which was established in 2014."
+        },
+        {
+          "term": "Working class",
+          "text": "The working class is a group of people in a social hierarchy, typically defined by earning wages or salaries through their ability to work. Members of the working class rely primarily upon earnings from wage labour. Most common definitions of \"working class\" in use in the United States limit its membership to workers who hold blue-collar and pink-collar jobs, or whose income is insufficiently high to place them in the middle class, or both. However, socialists define \"working class\" to include all workers who fall into the category of requiring income from wage labour to subsist; thus, this definition can include almost all of the working population of industrialized economies."
+        },
+        {
+          "term": "Short story",
+          "text": "A short story is a piece of narrative fiction in written prose that can typically be read in a single sitting. It focuses on a self-contained incident or a series of linked incidents, intended to evoke a single effect or mood. The short story is one of the oldest types of literature and has existed as legends, mythic tales, folk tales, fairy tales, tall tales, fables, and anecdotes in various ancient communities around the world. The modern short story developed in the early 19th century.\n\n"
+        }
+      ],
+      "last_error": "('invalid_request: Missing required parameter: refresh_token', {'error': 'invalid_request', 'error_description': 'Missing required parameter: refresh_token'})"
     }
   },
   "rss_seen": [
@@ -287,7 +364,25 @@
     "https://www.nytimes.com/2026/11/10/world/europe/who-is-david-walliams-sexual-misconduct-allegations-uk.html",
     "https://www.nytimes.com/2026/11/10/us/politics/presidential-library-artifacts-photo-book.html",
     "https://www.nytimes.com/2026/11/10/books/review/gabriel-bump-dont-stop-snowing.html",
-    "https://www.nytimes.com/2026/11/10/books/review/romes-age-of-revolution-tim-whitmarsh.html"
+    "https://www.nytimes.com/2026/11/10/books/review/romes-age-of-revolution-tim-whitmarsh.html",
+    "https://www.nytimes.com/2026/11/16/books/review/nanny-nanny-k-chiucarello.html",
+    "https://www.nytimes.com/2026/11/16/books/review/anita-brookner-hermione-lee.html",
+    "https://www.nytimes.com/2026/11/16/books/national-book-award-fiction-readers-vote.html",
+    "https://www.nytimes.com/2026/11/16/books/review/gary-shteyngart-sensualist-pure-pleasure.html",
+    "https://www.nytimes.com/2026/11/10/books/review/nick-paumgarten-the-intangibles.html",
+    "https://www.nytimes.com/2026/11/09/obituaries/gary-fisketjon-dead.html",
+    "https://www.nytimes.com/2026/11/09/books/booker-prize-winner-2026-science-fiction.html",
+    "https://www.theguardian.com/books/2026/nov/16/the-sensualist-by-gary-shteyngart-review-a-delectable-romp-through-lifes-pleasures",
+    "https://www.theguardian.com/books/2026/nov/16/michael-by-bob-mortimer-review-heartwarming-quirkiness-from-the-comedian",
+    "https://www.theguardian.com/books/2026/nov/15/she-was-a-monster-the-real-patricia-highsmith-by-the-people-who-knew-her",
+    "https://www.theguardian.com/lifeandstyle/2026/nov/15/the-unexpected-power-of-fleeting-friendships",
+    "https://www.theguardian.com/books/picture/2026/nov/15/tom-gauld-on-business-and-self-improvement-books-licensed-by-the-jrr-tolkien-estate-cartoon",
+    "https://www.theguardian.com/books/ng-interactive/2026/nov/14/its-like-the-wild-west-how-ai-has-rocked-the-literary-world",
+    "https://www.theguardian.com/uk-news/2026/nov/13/families-clear-homes-of-david-walliams-books-after-sexual-offence-allegations",
+    "https://www.theguardian.com/books/ng-interactive/2026/may/12/the-100-best-novels-of-all-time",
+    "https://www.theguardian.com/books/ng-interactive/2026/nov/13/the-best-books-to-read-in-november-and-december-new-paperbacks-from-benjamin-myers-jeanette-winterson-and-john-updike",
+    "https://www.theguardian.com/books/2026/oct/31/what-were-reading-ian-rankin-louise-kennedy-and-guardian-readers-on-the-books-they-enjoyed-in-october",
+    "https://www.theguardian.com/books/2026/nov/13/this-cursed-beautiful-land-by-evan-gershkovich-review-jailed-in-putins-russia"
   ],
   "playlists": {
     "Psychology & Mind — Book Shorts": "PLeHfGv476DYc",
